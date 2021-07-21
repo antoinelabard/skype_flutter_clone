@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:skype_flutter_clone/resources/firebase_repository.dart';
+import 'package:skype_flutter_clone/screens/home_screen.dart';
+import 'package:skype_flutter_clone/screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
