@@ -1,6 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:skype_flutter_clone/resources/firebase_repository.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -12,11 +18,23 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  FireBaseRepository _fireBaseRepository = FireBaseRepository();
   @override
   Widget build(BuildContext context) {
 
+    FirebaseFirestore.instance.collection("users").add({
+      "name":"antoine"
+    });
 
-
-    return Container();
+    return FutureBuilder(
+      future: _fireBaseRepository.getCurrentUser(),
+      builder: (context, AsyncSnapshot<User> snapshot) {
+        if (snapshot.hasData) {
+          return HomeScreen();
+        } else {
+          return LoginScreen();
+        }
+      },
+    );
   }
 }
