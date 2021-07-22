@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -24,17 +23,17 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseFirestore.instance.collection("users").add({"name": "antoine"});
-
-    return FutureBuilder(
-      future: _fireBaseRepository.getCurrentUser(),
-      builder: (context, AsyncSnapshot<User> snapshot) {
-        if (snapshot.hasData) {
-          return HomeScreen();
-        } else {
-          return LoginScreen();
-        }
-      },
+    return MaterialApp(
+      home: FutureBuilder(
+        future: _fireBaseRepository.getCurrentUser(),
+        builder: (context, AsyncSnapshot<User> snapshot) {
+          if (snapshot.hasData) {
+            return HomeScreen();
+          } else {
+            return LoginScreen();
+          }
+        },
+      ),
     );
   }
 }

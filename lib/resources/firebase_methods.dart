@@ -44,4 +44,10 @@ class FirebaseMethods {
         username: Utils.getUsername(currentUser.email!));
     firebaseFirestore.collection("users").doc(user.uid).set(user.toMap());
   }
+
+  Future<void> signOut() async {
+    _googleSignIn.disconnect();
+    _googleSignIn.signOut();
+    return await _auth.signOut();
+  }
 }
