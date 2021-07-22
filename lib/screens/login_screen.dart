@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:skype_flutter_clone/resources/firebase_repository.dart';
 import 'package:skype_flutter_clone/screens/home_screen.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -18,36 +18,35 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        isLoginButtonPressed ? CircularProgressIndicator() : Container(),
-        Scaffold(
+    return Stack(children: [
+      isLoginButtonPressed ? CircularProgressIndicator() : Container(),
+      Scaffold(
         backgroundColor: Constants.blackColor,
-          body: Center(child: loginButton()),
-        ),]
-    );
+        body: Center(child: loginButton()),
+      ),
+    ]);
   }
 
   loginButton() => Shimmer.fromColors(
-    baseColor: Colors.white,
-    highlightColor: Constants.senderColor,
-    child: Padding(
+        baseColor: Colors.white,
+        highlightColor: Constants.senderColor,
+        child: Padding(
           padding: EdgeInsets.all(35),
           child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10)
-            ),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
             child: TextButton(
               child: Text(
                 'LOGIN',
                 style: TextStyle(
-                    fontSize: 35, fontWeight: FontWeight.w900, letterSpacing: 1.2),
+                    fontSize: 35,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: 1.2),
               ),
               onPressed: () => performLogin(),
             ),
           ),
         ),
-  );
+      );
 
   void performLogin() {
     setState(() {
