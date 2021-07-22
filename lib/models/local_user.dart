@@ -1,11 +1,11 @@
 class LocalUser {
-  String? uid = "";
-  String? name = "";
-  String? email = "";
-  String? username = "";
-  String? status = "";
-  int? state = -1;
-  String? profilePhoto = "";
+  String? uid;
+  String? name;
+  String? email;
+  String? username;
+  String? status;
+  int? state;
+  String? profilePhoto;
 
   LocalUser({
     this.uid,
