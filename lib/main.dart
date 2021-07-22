@@ -21,12 +21,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   FireBaseRepository _fireBaseRepository = FireBaseRepository();
+
   @override
   Widget build(BuildContext context) {
-
-    FirebaseFirestore.instance.collection("users").add({
-      "name":"antoine"
-    });
+    FirebaseFirestore.instance.collection("users").add({"name": "antoine"});
 
     return FutureBuilder(
       future: _fireBaseRepository.getCurrentUser(),

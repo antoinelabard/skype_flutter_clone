@@ -25,22 +25,23 @@ class FirebaseMethods {
         await _auth.signInWithCredential(credential);
     return userCredential;
   }
+
   Future<bool> authenticateUser(User user) async {
     QuerySnapshot result = await firebaseFirestore
         .collection("users")
-        .where("email", isEqualTo: user.email).get();
+        .where("email", isEqualTo: user.email)
+        .get();
     final List<DocumentSnapshot> docs = result.docs;
     return docs.length == 0;
   }
 
   Future<void> addDataToDb(User currentUser) async {
     LocalUser user = LocalUser(
-      uid: currentUser.uid,
-      email: currentUser.email,
-      name: currentUser.displayName,
-      profilePhoto: currentUser.photoURL,
-      username: Utils.getUsername(currentUser.email!)
-    );
+        uid: currentUser.uid,
+        email: currentUser.email,
+        name: currentUser.displayName,
+        profilePhoto: currentUser.photoURL,
+        username: Utils.getUsername(currentUser.email!));
     firebaseFirestore.collection("users").doc(user.uid).set(user.toMap());
   }
 }
