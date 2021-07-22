@@ -17,15 +17,15 @@ class LocalUser {
     this.profilePhoto,
   });
 
-  Map toMap(LocalUser user) {
+  Map<String, dynamic> toMap() {
     var data = Map<String, dynamic>();
-    data['uid'] = user.uid;
-    data['name'] = user.name;
-    data['email'] = user.email;
-    data['username'] = user.username;
-    data["status"] = user.status;
-    data["state"] = user.state;
-    data["profile_photo"] = user.profilePhoto;
+    data['uid'] = this.uid;
+    data['name'] = this.name;
+    data['email'] = this.email;
+    data['username'] = this.username;
+    data["status"] = this.status;
+    data["state"] = this.state;
+    data["profile_photo"] = this.profilePhoto;
     return data;
   }
 
