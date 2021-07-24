@@ -53,18 +53,11 @@ class _LoginScreenState extends State<LoginScreen> {
       isLoginButtonPressed = true;
     });
     _repository.signIn().then((userCredential) {
-      if (userCredential != null) {
         authenticateUser(userCredential.user!);
-      } else {
-        print("There was an error.");
-      }
     });
   }
 
   void authenticateUser(User user) {
-    setState(() {
-      isLoginButtonPressed = false;
-    });
     _repository.authenticateUser(user).then((isNewUser) {
       if (isNewUser) {
         _repository.addDataToDb(user).then((value) {

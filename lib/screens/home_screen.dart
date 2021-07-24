@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:skype_flutter_clone/screens/page_views/chat_screen_list.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,11 +13,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late PageController pageController;
   int _page = 0;
-  int _labelFontSize = 10;
 
   void initState() {
     super.initState();
-    pageController = PageController();
+    pageController = PageController(initialPage: 0);
   }
 
   @override
@@ -25,12 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Constants.blackColor,
         body: PageView(
           children: [
-            Center(child: Text("Chats")),
-            Center(child: Text("Calls log")),
-            Center(child: Text("Contacts")),
+            Container(child: ChatScreenList(),),
+            Center(child: Text("Calls log",style: TextStyle(color: Colors.white))),
+            Center(child: Text("Contacts",style: TextStyle(color: Colors.white))),
           ],
+          scrollDirection: Axis.horizontal,
           controller: pageController,
-          onPageChanged: onPageChanged(0),
+          onPageChanged: onPageChanged,
+          physics: NeverScrollableScrollPhysics(),
         ),
         bottomNavigationBar: Container(
             child: Padding(
@@ -53,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ? Constants.lightBlueColor
                               : Constants.greyColor,
                         ),
-                        label: "Calls log"),
+                        label: "Calls log",),
                     BottomNavigationBarItem(
                         icon: Icon(
                           Icons.contact_phone,
@@ -63,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         label: "Contacts"),
                   ],
-                  onTap: navigationTapped(_page),
+                  onTap: navigationTapped,
                   currentIndex: _page,
                 ))));
   }
@@ -75,10 +77,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   navigationTapped(int page) {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      if (pageController.hasClients) {
+    // WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    //   if (pageController.hasClients) {
         pageController.jumpToPage(page);
-      }
-    });
+    //   }
+    // });
   }
 }
