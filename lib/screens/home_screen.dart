@@ -25,9 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Constants.blackColor,
         body: PageView(
           children: [
-            Container(child: ChatScreenList(),),
-            Center(child: Text("Calls log",style: TextStyle(color: Colors.white))),
-            Center(child: Text("Contacts",style: TextStyle(color: Colors.white))),
+            Container(
+              child: ChatScreenList(),
+            ),
+            Center(
+                child:
+                    Text("Calls log", style: TextStyle(color: Colors.white))),
+            Center(
+                child: Text("Contacts", style: TextStyle(color: Colors.white))),
           ],
           scrollDirection: Axis.horizontal,
           controller: pageController,
@@ -49,13 +54,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         label: "Chats"),
                     BottomNavigationBarItem(
-                        icon: Icon(
-                          Icons.phone,
-                          color: _page == 1
-                              ? Constants.lightBlueColor
-                              : Constants.greyColor,
-                        ),
-                        label: "Calls log",),
+                      icon: Icon(
+                        Icons.phone,
+                        color: _page == 1
+                            ? Constants.lightBlueColor
+                            : Constants.greyColor,
+                      ),
+                      label: "Calls log",
+                    ),
                     BottomNavigationBarItem(
                         icon: Icon(
                           Icons.contact_phone,
@@ -79,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
   navigationTapped(int page) {
     // WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
     //   if (pageController.hasClients) {
-        pageController.jumpToPage(page);
+    pageController.jumpToPage(page);
     //   }
     // });
   }

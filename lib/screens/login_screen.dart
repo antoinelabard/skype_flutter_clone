@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
       isLoginButtonPressed = true;
     });
     _repository.signIn().then((userCredential) {
-        authenticateUser(userCredential.user!);
+      authenticateUser(userCredential.user!);
     });
   }
 
