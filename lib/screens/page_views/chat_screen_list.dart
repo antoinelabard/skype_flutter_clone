@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skype_flutter_clone/resources/firebase_repository.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
 import 'package:skype_flutter_clone/utils/utils.dart';
+import 'package:skype_flutter_clone/widgets/chat_list_container.dart';
 import 'package:skype_flutter_clone/widgets/custom_appbar.dart';
 import 'package:skype_flutter_clone/widgets/new_chat_button.dart';
 import 'package:skype_flutter_clone/widgets/user_circle.dart';
@@ -32,9 +33,12 @@ class _ChatScreenListState extends State<ChatScreenList> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Constants.blackColor,
+    backgroundColor: Constants.blackColor,
         appBar: customAppbar(context),
         floatingActionButton: NewChatButton(),
+        body: ChatListContainer(
+          currentUserId: currentUserId,
+        ),
       );
 
   CustomAppbar customAppbar(BuildContext context) => CustomAppbar(
