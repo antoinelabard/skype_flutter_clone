@@ -45,7 +45,9 @@ class _ChatScreenListState extends State<ChatScreenList> {
         title: UserCircle(text: initials),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, "/search_screen");
+              },
               icon: Icon(
                 Icons.search,
                 color: Colors.white,
