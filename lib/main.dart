@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:skype_flutter_clone/resources/firebase_repository.dart';
 import 'package:skype_flutter_clone/screens/home_screen.dart';
 import 'package:skype_flutter_clone/screens/login_screen.dart';
+import 'package:skype_flutter_clone/screens/page_views/search_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +27,10 @@ class _MyAppState extends State<MyApp> {
     _fireBaseRepository
         .signOut(); // For test only. Remove to keep the user logged in
     return MaterialApp(
+      initialRoute: "/",
+      routes: {
+        '/search_screen': (context) => SearchScreen(),
+      },
       home: FutureBuilder(
         future: _fireBaseRepository.getCurrentUser(),
         builder: (context, AsyncSnapshot<User> snapshot) {
