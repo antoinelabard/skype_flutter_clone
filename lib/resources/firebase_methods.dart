@@ -50,4 +50,17 @@ class FirebaseMethods {
     _googleSignIn.signOut();
     return await _auth.signOut();
   }
+
+  Future<List<LocalUser>> fetchAllUser(User currentUser) async {
+    List<LocalUser> userList = new List<LocalUser>.filled(0, LocalUser());
+    QuerySnapshot querySnapshot =
+        await firebaseFirestore.collection("users").get();
+    for (var i; i < querySnapshot.docs.length; i++) {
+      if (querySnapshot.docs[i].id != currentUser.uid) {
+        userList.add(LocalUser.fromMap(
+            querySnapshot.docs[i].data() as Map<String, dynamic>));
+      }
+    }
+    return userList;
+  }
 }
