@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:skype_flutter_clone/models/local_user.dart';
 import 'package:skype_flutter_clone/resources/firebase_methods.dart';
 
 class FireBaseRepository {
@@ -15,6 +16,6 @@ class FireBaseRepository {
 
   Future<void> signOut() => _firebaseMethods.signOut();
 
-  Future<void> fetchAllUsers(User currentUser) =>
+  Future<List<LocalUser>> fetchAllUsers(User currentUser) =>
       _firebaseMethods.fetchAllUser(currentUser);
 }

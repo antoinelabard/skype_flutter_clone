@@ -13,20 +13,20 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   FireBaseRepository _repository = FireBaseRepository();
-  List<LocalUser>? userList;
+  late List<LocalUser> userList;
   String query = "";
   TextEditingController searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _repository
-        .getCurrentUser()
-        .then((user) => _repository.fetchAllUsers(user).then((users) {
-              setState(() {
-                users = users;
-              });
-            }));
+    _repository.getCurrentUser().then((user) {
+      _repository.fetchAllUsers(user).then((List<LocalUser> list) {
+        setState(() {
+          userList = list;
+        });
+      }); // as FutureOr<dynamic> Function(void));
+    });
   }
 
   @override
@@ -92,7 +92,7 @@ class _SearchScreenState extends State<SearchScreen> {
   buildSuggestions(String query) {
     final List<LocalUser> suggestionList = query.isEmpty
         ? []
-        : userList!.where((LocalUser user) {
+        : userList.where((LocalUser user) {
             String _getUsername = user.username!.toLowerCase();
             String _query = query.toLowerCase();
             String _getName = user.name!.toLowerCase();

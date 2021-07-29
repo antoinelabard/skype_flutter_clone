@@ -24,8 +24,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    _fireBaseRepository
-        .signOut(); // For test only. Remove to keep the user logged in
+    // _fireBaseRepository
+    // .signOut(); // For test only. Remove to keep the user logged in
     return MaterialApp(
       initialRoute: "/",
       routes: {
