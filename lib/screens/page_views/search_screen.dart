@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
 import 'package:skype_flutter_clone/resources/firebase_repository.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
+import 'package:skype_flutter_clone/widgets/custom_tile.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -33,6 +34,10 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       backgroundColor: Constants.blackColor,
       appBar: searchAppbar(context),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: buildSuggestions(query),
+      ),
     );
   }
 
@@ -82,6 +87,46 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       ),
     );
+  }
+
+  buildSuggestions(String query) {
+    final List<LocalUser> suggestionList = query.isEmpty
+        ? []
+        : userList!.where((LocalUser user) {
+            String _getUsername = user.username!.toLowerCase();
+            String _query = query.toLowerCase();
+            String _getName = user.name!.toLowerCase();
+            bool matchUsername = _getUsername.contains(_query);
+            bool matchName = _getName.contains(_query);
+            return (matchName || matchUsername);
+          }).toList();
+    return ListView.builder(
+        itemCount: suggestionList.length,
+        itemBuilder: (context, index) {
+          LocalUser searchedUser = LocalUser(
+            uid: suggestionList[index].uid,
+            profilePhoto: suggestionList[index].profilePhoto,
+            name: suggestionList[index].name,
+            username: suggestionList[index].username,
+          );
+          return CustomTile(
+            mini: false,
+            onTap: () {},
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(searchedUser.profilePhoto!),
+              backgroundColor: Colors.grey,
+            ),
+            title: Text(
+              searchedUser.username!,
+              style:
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+            ),
+            subtitle: Text(
+              searchedUser.name!,
+              style: TextStyle(color: Constants.greyColor),
+            ),
+          );
+        });
   }
 // searchAppbar(BuildContext context) {
 //   return AppBar(
