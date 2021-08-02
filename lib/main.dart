@@ -28,6 +28,7 @@ class _MyAppState extends State<MyApp> {
     // .signOut(); // For test only. Remove to keep the user logged in
     return MaterialApp(
       initialRoute: "/",
+      theme: ThemeData(brightness: Brightness.dark),
       routes: {
         '/search_screen': (context) => SearchScreen(),
       },
