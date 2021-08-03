@@ -117,7 +117,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          ChatScreen(reciever: searchedUser)));
+                          ChatScreen(receiver: searchedUser)));
             },
             leading: CircleAvatar(
               backgroundImage: NetworkImage(searchedUser.profilePhoto!),
