@@ -13,11 +13,17 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  TextEditingController _textEditingController = TextEditingController();
+  bool isWriting = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Constants.blackColor,
       appBar: customAppbar(context),
+      body: Column(
+        children: [chatControls()],
+      ),
     );
   }
 
@@ -40,4 +46,77 @@ class _ChatScreenState extends State<ChatScreen> {
         },
       ),
       centerTitle: false);
+
+  chatControls() => Container(
+        padding: EdgeInsets.all(10),
+        child: Row(
+          children: [
+            Flexible(child: messageList()),
+            Container(
+              padding: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                  gradient: Constants.fabGradient, shape: BoxShape.circle),
+              child: Icon(Icons.add),
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Expanded(
+                child: TextField(
+              controller: _textEditingController,
+              style: TextStyle(color: Colors.white),
+              onChanged: (val) {
+                if (val.length > 0 && val.trim() != "")
+                  setState(() {
+                    isWriting = true;
+                  });
+                else
+                  setState(() {
+                    isWriting = false;
+                  });
+              },
+              decoration: InputDecoration(
+                  hintText: "Message...",
+                  hintStyle: TextStyle(
+                    color: Constants.greyColor,
+                  ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(50)),
+                      borderSide: BorderSide.none),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  filled: true,
+                  fillColor: Constants.separatorColor,
+                  suffixIcon: GestureDetector(
+                    onTap: () {},
+                    child: Icon(Icons.face),
+                  )),
+            )),
+            isWriting
+                ? Container()
+                : Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Icon(Icons.record_voice_over),
+                  ),
+            isWriting ? Container() : Icon(Icons.camera_alt),
+            isWriting
+                ? Container(
+                    margin: EdgeInsets.only(left: 10),
+                    decoration: BoxDecoration(
+                        gradient: Constants.fabGradient,
+                        shape: BoxShape.circle),
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.send,
+                        // size: 15,
+                      ),
+                      onPressed: () {},
+                    ),
+                  )
+                : Container()
+          ],
+        ),
+      );
+
+  messageList() {}
 }
