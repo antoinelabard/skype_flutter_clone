@@ -216,7 +216,27 @@ class _ChatScreenState extends State<ChatScreen> {
                     ModalTile(
                         title: "Media",
                         subTitle: "Share photos and videos",
-                        iconData: Icons.image)
+                        iconData: Icons.image),
+                    ModalTile(
+                        title: "File",
+                        subTitle: "Share a file",
+                        iconData: Icons.image),
+                    ModalTile(
+                        title: "Contact",
+                        subTitle: "Share contact",
+                        iconData: Icons.image),
+                    ModalTile(
+                        title: "Location",
+                        subTitle: "Share a location",
+                        iconData: Icons.image),
+                    ModalTile(
+                        title: "Schedule Call",
+                        subTitle: "Arrange a call and get reminders",
+                        iconData: Icons.image),
+                    ModalTile(
+                        title: "Create poll",
+                        subTitle: "Share polls",
+                        iconData: Icons.image),
                   ],
                 ))
               ],
