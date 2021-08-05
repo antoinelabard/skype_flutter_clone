@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:skype_flutter_clone/utils/Constants.dart';
+import 'package:skype_flutter_clone/widgets/custom_tile.dart';
 
 class ModalTile extends StatelessWidget {
   final String title;
   final String subTitle;
-  final Icon iconData;
+  final IconData iconData;
 
   const ModalTile(
       {Key? key,
@@ -13,7 +15,31 @@ class ModalTile extends StatelessWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+  Widget build(BuildContext context) => Padding(
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        child: CustomTile(
+          mini: false,
+          leading: Container(
+            margin: EdgeInsets.only(right: 10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Constants.receiverColor),
+            padding: EdgeInsets.all(10),
+            child: Icon(
+              iconData,
+              color: Constants.greyColor,
+              size: 38,
+            ),
+          ),
+          subtitle: Text(
+            subTitle,
+            style: TextStyle(color: Constants.greyColor, fontSize: 14),
+          ),
+          title: Text(
+            title,
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.white, fontSize: 18),
+          ),
+        ),
+      );
 }
