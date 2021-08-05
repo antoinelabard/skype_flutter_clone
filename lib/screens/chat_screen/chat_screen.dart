@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
 import 'package:skype_flutter_clone/widgets/custom_appbar.dart';
+import 'package:skype_flutter_clone/widgets/modal_tile.dart';
 
 class ChatScreen extends StatefulWidget {
   final LocalUser receiver;
@@ -22,7 +23,10 @@ class _ChatScreenState extends State<ChatScreen> {
       backgroundColor: Constants.blackColor,
       appBar: customAppbar(context),
       body: Column(
-        children: [chatControls()],
+        children: [
+          Flexible(child: messageList()),
+          chatControls(),
+        ],
       ),
     );
   }
@@ -51,12 +55,14 @@ class _ChatScreenState extends State<ChatScreen> {
         padding: EdgeInsets.all(10),
         child: Row(
           children: [
-            Flexible(child: messageList()),
-            Container(
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                  gradient: Constants.fabGradient, shape: BoxShape.circle),
-              child: Icon(Icons.add),
+            GestureDetector(
+              onTap: () => addMediaModal(context),
+              child: Container(
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                    gradient: Constants.fabGradient, shape: BoxShape.circle),
+                child: Icon(Icons.add),
+              ),
             ),
             SizedBox(
               width: 5,
@@ -118,5 +124,102 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       );
 
-  messageList() {}
+  messageList() => ListView.builder(
+      padding: EdgeInsets.all(10),
+      itemCount: 6,
+      itemBuilder: (context, index) => chatMessageItem());
+
+  chatMessageItem() => Container(
+        margin: EdgeInsets.symmetric(vertical: 15),
+        child: Container(
+          child: receiverlayout(),
+        ),
+      );
+
+  senderLayout() {
+    var messageRadius = Radius.circular(10);
+    return Container(
+      margin: EdgeInsets.only(top: 12),
+      // constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.65),
+      decoration: BoxDecoration(
+        color: Constants.senderColor,
+        borderRadius: BorderRadius.only(
+          topLeft: messageRadius,
+          bottomLeft: messageRadius,
+          topRight: messageRadius,
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Text(
+          "Hello",
+          style: TextStyle(color: Colors.white, fontSize: 16),
+        ),
+      ),
+    );
+  }
+
+  receiverlayout() {
+    var messageRadius = Radius.circular(10);
+    return Container(
+      margin: EdgeInsets.only(top: 12),
+      constraints:
+          BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.65),
+      decoration: BoxDecoration(
+        color: Constants.receiverColor,
+        borderRadius: BorderRadius.only(
+          bottomRight: messageRadius,
+          bottomLeft: messageRadius,
+          topRight: messageRadius,
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Text(
+          "Hello",
+          style: TextStyle(color: Colors.white, fontSize: 16),
+        ),
+      ),
+    );
+  }
+
+  addMediaModal(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        elevation: 0,
+        builder: (context) => Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  child: Row(
+                    children: [
+                      TextButton(
+                          onPressed: () => Navigator.maybePop(context),
+                          child: Icon(Icons.close)),
+                      Expanded(
+                          child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Content and tools",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ))
+                    ],
+                  ),
+                ),
+                Flexible(
+                    child: ListView(
+                  children: [
+                    ModalTile(
+                        title: "Media",
+                        subTitle: "Share photos and videos",
+                        iconData: Icons.image)
+                  ],
+                ))
+              ],
+            ));
+  }
 }
