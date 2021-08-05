@@ -116,7 +116,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         Icons.send,
                         // size: 15,
                       ),
-                      onPressed: () {},
+                      onPressed: () => sendMessage(),
                     ),
                   )
                 : Container()
@@ -241,5 +241,9 @@ class _ChatScreenState extends State<ChatScreen> {
                 ))
               ],
             ));
+  }
+
+  sendMessage() {
+    // var text = _textEditingController.text;
   }
 }
