@@ -158,17 +158,22 @@ class _ChatScreenState extends State<ChatScreen> {
             padding: EdgeInsets.all(10),
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (context, index) =>
-                chatMessageItem(snapshot.data.docs[index]));
+                chatMessageItem(snapshot.data!.docs[index]));
       });
 
-  chatMessageItem() => Container(
+  chatMessageItem(DocumentSnapshot snapshot) => Container(
         margin: EdgeInsets.symmetric(vertical: 15),
         child: Container(
-          child: receiverlayout(),
+          child: snapshot['senderId'] == _currentUserId
+              ? senderLayout(snapshot)
+              : receiverlayout(snapshot),
+          alignment: snapshot['senderId'] == _currentUserId
+              ? Alignment.centerRight
+              : Alignment.centerLeft,
         ),
       );
 
-  senderLayout() {
+  senderLayout(DocumentSnapshot snapshot) {
     var messageRadius = Radius.circular(10);
     return Container(
       margin: EdgeInsets.only(top: 12),
@@ -181,17 +186,11 @@ class _ChatScreenState extends State<ChatScreen> {
           topRight: messageRadius,
         ),
       ),
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: Text(
-          "Hello",
-          style: TextStyle(color: Colors.white, fontSize: 16),
-        ),
-      ),
+      child: Padding(padding: EdgeInsets.all(10), child: getMessage(snapshot)),
     );
   }
 
-  receiverlayout() {
+  receiverlayout(DocumentSnapshot snapshot) {
     var messageRadius = Radius.circular(10);
     return Container(
       margin: EdgeInsets.only(top: 12),
@@ -209,7 +208,7 @@ class _ChatScreenState extends State<ChatScreen> {
         padding: EdgeInsets.all(10),
         child: Text(
           "Hello",
-          style: TextStyle(color: Colors.white, fontSize: 16),
+          style: getMessage(snapshot),
         ),
       ),
     );
@@ -286,8 +285,14 @@ class _ChatScreenState extends State<ChatScreen> {
 
     setState(() {
       isWriting = false;
+      _textEditingController.text = "";
     });
 
     _repository.addMessageToDb(message, sender, widget.receiver);
   }
+
+  getMessage(DocumentSnapshot snapshot) => Text(
+        snapshot['message'],
+        style: TextStyle(color: Colors.white, fontSize: 16),
+      );
 }
