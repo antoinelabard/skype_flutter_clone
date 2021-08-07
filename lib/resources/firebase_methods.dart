@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
+import 'package:skype_flutter_clone/models/message.dart';
 import 'package:skype_flutter_clone/utils/utils.dart';
 
 class FirebaseMethods {
@@ -62,5 +63,20 @@ class FirebaseMethods {
       }
     }
     return userList;
+  }
+
+  Future<void> addMessageToDb(
+      Message message, LocalUser sender, LocalUser receiver) async {
+    var map = message.toMap();
+    await firebaseFirestore
+        .collection("messages")
+        .doc(message.senderId)
+        .collection(message.receiverId)
+        .add(map);
+    await firebaseFirestore
+        .collection("messages")
+        .doc(message.receiverId)
+        .collection(message.senderId)
+        .add(map);
   }
 }
