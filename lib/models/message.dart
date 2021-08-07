@@ -1,19 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Message {
-  String senderId;
-  String receiverId;
-  String type;
-  String message;
-  String photoUrl;
-  FieldValue timestamp;
+  late String senderId;
+  late String receiverId;
+  late String type;
+  late String message;
+  String photoUrl = "";
+  late FieldValue timestamp;
 
   Message(
       {required this.senderId,
       required this.receiverId,
       required this.type,
       required this.message,
-      this.photoUrl = "",
+      required this.timestamp});
+
+  Message.imageMessage(
+      {required this.senderId,
+      required this.receiverId,
+      required this.type,
+      required this.message,
+      required this.photoUrl,
       required this.timestamp});
 
   toMap() {
@@ -27,11 +34,12 @@ class Message {
     return map;
   }
 
-  fromMap(Map<String, dynamic> map) => Message(
-      senderId: map['senderId'],
-      receiverId: map['receiverId'],
-      type: map['type'],
-      message: map['message'],
-      photoUrl: map['photoUrl'],
-      timestamp: map['timestamp']);
+  Message.fromMap(Map<String, dynamic> map) {
+    this.senderId = map['senderId'];
+    this.receiverId = map['receiverId'];
+    this.type = map['type'];
+    this.message = map['message'];
+    this.photoUrl = map['photoUrl'];
+    this.timestamp = map['timestamp'];
+  }
 }
