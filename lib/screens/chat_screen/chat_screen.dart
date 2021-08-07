@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
+import 'package:skype_flutter_clone/models/message.dart';
+import 'package:skype_flutter_clone/resources/firebase_repository.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
 import 'package:skype_flutter_clone/widgets/custom_appbar.dart';
 import 'package:skype_flutter_clone/widgets/modal_tile.dart';
@@ -16,6 +19,22 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   TextEditingController _textEditingController = TextEditingController();
   bool isWriting = false;
+
+  late LocalUser sender;
+  var _repository = FireBaseRepository();
+  late String _currentUserId;
+
+  @override
+  void initState() {
+    super.initState();
+    _repository.getCurrentUser().then((user) {
+      _currentUserId = user.uid;
+      setState(() {
+        sender = LocalUser(
+            uid: user.uid, name: user.displayName, profilePhoto: user.photoURL);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -244,6 +263,18 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   sendMessage() {
-    // var text = _textEditingController.text;
+    var text = _textEditingController.text;
+    var message = Message(
+        receiverId: widget.receiver.uid!,
+        senderId: sender.uid!,
+        message: text,
+        timestamp: FieldValue.serverTimestamp(),
+        type: 'text');
+
+    setState(() {
+      isWriting = false;
+    });
+
+    _repository.addMessageToDb(message, sender, widget.receiver);
   }
 }

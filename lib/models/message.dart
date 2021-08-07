@@ -13,7 +13,7 @@ class Message {
       required this.receiverId,
       required this.type,
       required this.message,
-      required this.photoUrl,
+      this.photoUrl = "",
       required this.timestamp});
 
   toMap() {
