@@ -143,10 +143,23 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       );
 
-  messageList() => ListView.builder(
-      padding: EdgeInsets.all(10),
-      itemCount: 6,
-      itemBuilder: (context, index) => chatMessageItem());
+  messageList() => StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection("messages")
+          .doc(_currentUserId)
+          .collection(widget.receiver.uid!)
+          .orderBy("timestamp", descending: true)
+          .snapshots(),
+      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.data == null) {
+          return Center(child: CircularProgressIndicator());
+        }
+        return ListView.builder(
+            padding: EdgeInsets.all(10),
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index) =>
+                chatMessageItem(snapshot.data.docs[index]));
+      });
 
   chatMessageItem() => Container(
         margin: EdgeInsets.symmetric(vertical: 15),
