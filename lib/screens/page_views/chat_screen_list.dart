@@ -33,7 +33,7 @@ class _ChatScreenListState extends State<ChatScreenList> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Constants.blackColor,
+        backgroundColor: Constants.blackColor,
         appBar: customAppbar(context),
         floatingActionButton: NewChatButton(),
         body: ChatListContainer(
