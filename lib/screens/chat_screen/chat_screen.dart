@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:emoji_picker/emoji_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:skype_flutter_clone/constants/strings.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
 import 'package:skype_flutter_clone/models/message.dart';
@@ -24,6 +26,9 @@ class _ChatScreenState extends State<ChatScreen> {
   late LocalUser sender;
   var _repository = FireBaseRepository();
   late String _currentUserId;
+  var _scrollController = ScrollController();
+  var showEmojiPicker = false;
+  var focusNode = FocusNode();
 
   @override
   void initState() {
@@ -46,6 +51,7 @@ class _ChatScreenState extends State<ChatScreen> {
         children: [
           Flexible(child: messageList()),
           chatControls(),
+          showEmojiPicker ? Container(child: emojiPicker()) : Container()
         ],
       ),
     );
@@ -88,20 +94,22 @@ class _ChatScreenState extends State<ChatScreen> {
               width: 5,
             ),
             Expanded(
-                child: TextField(
-              controller: _textEditingController,
-              style: TextStyle(color: Colors.white),
-              onChanged: (val) {
-                if (val.length > 0 && val.trim() != "")
-                  setState(() {
-                    isWriting = true;
-                  });
-                else
-                  setState(() {
-                    isWriting = false;
-                  });
-              },
-              decoration: InputDecoration(
+                child: Stack(alignment: Alignment.centerRight, children: [
+              TextField(
+                focusNode: focusNode,
+                controller: _textEditingController,
+                style: TextStyle(color: Colors.white),
+                onChanged: (val) {
+                  if (val.length > 0 && val.trim() != "")
+                    setState(() {
+                      isWriting = true;
+                    });
+                  else
+                    setState(() {
+                      isWriting = false;
+                    });
+                },
+                decoration: InputDecoration(
                   hintText: "Message...",
                   hintStyle: TextStyle(
                     color: Constants.greyColor,
@@ -113,18 +121,34 @@ class _ChatScreenState extends State<ChatScreen> {
                       EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   filled: true,
                   fillColor: Constants.separatorColor,
-                  suffixIcon: GestureDetector(
-                    onTap: () {},
-                    child: Icon(Icons.face),
-                  )),
-            )),
+                ),
+              ),
+              IconButton(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onPressed: () {
+                  if (!showEmojiPicker) {
+                    hideKeyboard();
+                    showEmojiContainer();
+                  } else {
+                    showKeyboard();
+                    hideEmojiContainer();
+                  }
+                },
+                icon: Icon(Icons.face),
+              )
+            ])),
             isWriting
                 ? Container()
                 : Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Icon(Icons.record_voice_over),
                   ),
-            isWriting ? Container() : Icon(Icons.camera_alt),
+            isWriting
+                ? Container()
+                : GestureDetector(
+                    onTap: () => pickImage(ImageSource.camera),
+                    child: Icon(Icons.camera_alt)),
             isWriting
                 ? Container(
                     margin: EdgeInsets.only(left: 10),
@@ -158,6 +182,7 @@ class _ChatScreenState extends State<ChatScreen> {
         return ListView.builder(
             padding: EdgeInsets.all(10),
             itemCount: snapshot.data!.docs.length,
+            controller: _scrollController,
             itemBuilder: (context, index) =>
                 chatMessageItem(snapshot.data!.docs[index]));
       });
@@ -301,4 +326,36 @@ class _ChatScreenState extends State<ChatScreen> {
         message.message,
         style: TextStyle(color: Colors.white, fontSize: 16),
       );
+
+  emojiPicker() => EmojiPicker(
+        bgColor: Constants.separatorColor,
+        indicatorColor: Constants.blueColor,
+        rows: 3,
+        columns: 7,
+        onEmojiSelected: (emoji, category) {
+          setState(() {
+            isWriting = true;
+          });
+          _textEditingController.text =
+              _textEditingController.text + emoji.emoji;
+        },
+      );
+
+  showKeyboard() => focusNode.requestFocus();
+
+  hideKeyboard() => focusNode.unfocus();
+
+  hideEmojiContainer() {
+    setState(() {
+      showEmojiPicker = false;
+    });
+  }
+
+  showEmojiContainer() {
+    setState(() {
+      showEmojiPicker = true;
+    });
+  }
+
+  pickImage(ImageSource camera) {}
 }
