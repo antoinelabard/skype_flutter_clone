@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:skype_flutter_clone/constants/strings.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
 import 'package:skype_flutter_clone/models/message.dart';
 import 'package:skype_flutter_clone/resources/firebase_repository.dart';
@@ -145,10 +146,10 @@ class _ChatScreenState extends State<ChatScreen> {
 
   messageList() => StreamBuilder(
       stream: FirebaseFirestore.instance
-          .collection("messages")
+          .collection(MESSAGES_COLLECTION)
           .doc(_currentUserId)
           .collection(widget.receiver.uid!)
-          .orderBy("timestamp", descending: true)
+          .orderBy(TIMESTAMP_FIELD, descending: false)
           .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.data == null) {
@@ -161,23 +162,28 @@ class _ChatScreenState extends State<ChatScreen> {
                 chatMessageItem(snapshot.data!.docs[index]));
       });
 
-  chatMessageItem(DocumentSnapshot snapshot) => Container(
-        margin: EdgeInsets.symmetric(vertical: 15),
-        child: Container(
-          child: snapshot['senderId'] == _currentUserId
-              ? senderLayout(snapshot)
-              : receiverlayout(snapshot),
-          alignment: snapshot['senderId'] == _currentUserId
-              ? Alignment.centerRight
-              : Alignment.centerLeft,
-        ),
-      );
+  chatMessageItem(DocumentSnapshot snapshot) {
+    var _message = Message.fromMap(snapshot.data() as Map<String, dynamic>);
 
-  senderLayout(DocumentSnapshot snapshot) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 15),
+      child: Container(
+        child: _message.senderId == _currentUserId
+            ? senderLayout(_message)
+            : receiverlayout(_message),
+        alignment: _message.senderId == _currentUserId // 5:09
+            ? Alignment.centerRight
+            : Alignment.centerLeft,
+      ),
+    );
+  }
+
+  senderLayout(Message messsage) {
     var messageRadius = Radius.circular(10);
     return Container(
       margin: EdgeInsets.only(top: 12),
-      // constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.65),
+      constraints:
+          BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.65),
       decoration: BoxDecoration(
         color: Constants.senderColor,
         borderRadius: BorderRadius.only(
@@ -186,11 +192,11 @@ class _ChatScreenState extends State<ChatScreen> {
           topRight: messageRadius,
         ),
       ),
-      child: Padding(padding: EdgeInsets.all(10), child: getMessage(snapshot)),
+      child: Padding(padding: EdgeInsets.all(10), child: getMessage(messsage)),
     );
   }
 
-  receiverlayout(DocumentSnapshot snapshot) {
+  receiverlayout(Message message) {
     var messageRadius = Radius.circular(10);
     return Container(
       margin: EdgeInsets.only(top: 12),
@@ -208,7 +214,7 @@ class _ChatScreenState extends State<ChatScreen> {
         padding: EdgeInsets.all(10),
         child: Text(
           "Hello",
-          style: getMessage(snapshot),
+          style: getMessage(message),
         ),
       ),
     );
@@ -280,7 +286,7 @@ class _ChatScreenState extends State<ChatScreen> {
         receiverId: widget.receiver.uid!,
         senderId: sender.uid!,
         message: text,
-        timestamp: FieldValue.serverTimestamp(),
+        timestamp: Timestamp.now(),
         type: 'text');
 
     setState(() {
@@ -291,8 +297,8 @@ class _ChatScreenState extends State<ChatScreen> {
     _repository.addMessageToDb(message, sender, widget.receiver);
   }
 
-  getMessage(DocumentSnapshot snapshot) => Text(
-        snapshot['message'],
+  getMessage(Message message) => Text(
+        message.message,
         style: TextStyle(color: Colors.white, fontSize: 16),
       );
 }

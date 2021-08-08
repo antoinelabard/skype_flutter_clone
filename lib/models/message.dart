@@ -6,7 +6,7 @@ class Message {
   late String type;
   late String message;
   String photoUrl = "";
-  late FieldValue timestamp;
+  late Timestamp timestamp;
 
   Message(
       {required this.senderId,
