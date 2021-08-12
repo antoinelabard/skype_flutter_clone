@@ -9,7 +9,7 @@ import 'package:skype_flutter_clone/models/local_user.dart';
 import 'package:skype_flutter_clone/models/message.dart';
 import 'package:skype_flutter_clone/provider/image_upload_provider.dart';
 import 'package:skype_flutter_clone/resources/firebase_repository.dart';
-import 'package:skype_flutter_clone/screens/chat_screen/widgets/cached_image.dart';
+import 'package:skype_flutter_clone/screens/chat_screens/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
 import 'package:skype_flutter_clone/utils/utils.dart';
 import 'package:skype_flutter_clone/widgets/custom_appbar.dart';
