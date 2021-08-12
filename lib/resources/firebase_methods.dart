@@ -107,7 +107,6 @@ class FirebaseMethods {
           await (await _uploadTask.whenComplete(() {})).ref.getDownloadURL();
       return url;
     } catch (e) {
-      print("ERRROOOR");
       print(e);
       return null;
     }
