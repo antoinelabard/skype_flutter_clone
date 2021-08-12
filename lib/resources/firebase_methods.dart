@@ -29,7 +29,7 @@ class FirebaseMethods {
         accessToken: _googleSignInAuthentication.accessToken,
         idToken: _googleSignInAuthentication.idToken);
     UserCredential userCredential =
-    await _auth.signInWithCredential(credential);
+        await _auth.signInWithCredential(credential);
     return userCredential;
   }
 
@@ -64,7 +64,7 @@ class FirebaseMethods {
   Future<List<LocalUser>> fetchAllUser(User currentUser) async {
     List<LocalUser> userList = [];
     QuerySnapshot querySnapshot =
-    await firebaseFirestore.collection(USERS_COLLECTION).get();
+        await firebaseFirestore.collection(USERS_COLLECTION).get();
     for (var i = 0; i < querySnapshot.docs.length; i++) {
       if (querySnapshot.docs[i].id != currentUser.uid) {
         userList.add(LocalUser.fromMap(
@@ -74,7 +74,8 @@ class FirebaseMethods {
     return userList;
   }
 
-  Future<void> addMessageToDb(Message message, LocalUser sender, LocalUser receiver) async {
+  Future<void> addMessageToDb(
+      Message message, LocalUser sender, LocalUser receiver) async {
     var map = message.toMap();
     await firebaseFirestore
         .collection(MESSAGES_COLLECTION)
