@@ -6,12 +6,14 @@ class ModalTile extends StatelessWidget {
   final String title;
   final String subTitle;
   final IconData iconData;
+  final Function onTap;
 
   const ModalTile(
       {Key? key,
       required this.title,
       required this.subTitle,
-      required this.iconData})
+      required this.iconData,
+      required this.onTap})
       : super(key: key);
 
   @override

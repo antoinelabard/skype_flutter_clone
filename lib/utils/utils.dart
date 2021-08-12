@@ -14,9 +14,9 @@ class Utils {
     return split[0][0] + split[1][0];
   }
 
-  pickImage(ImageSource source) async {
-    File selectedImage = await ImagePicker().pickImage(source: source) as File;
-    return compressImage(selectedImage);
+  static pickImage({required ImageSource source}) async {
+    XFile? selectedImage = await ImagePicker().pickImage(source: source);
+    return compressImage(File(selectedImage!.path));
   }
 
   static compressImage(File selectedImage) async {
@@ -25,7 +25,8 @@ class Utils {
     var random = Random().nextInt(1000);
     Im.Image image = Im.decodeImage(selectedImage.readAsBytesSync())!;
     Im.copyResize(image, width: 500, height: 500);
-    return new File('$path/img_$random.jpg')
-        .writeAsBytesSync(Im.encodeJpg(image, quality: 85));
+    var i = Im.encodeJpg(image, quality: 85);
+    File f = File('$path/img_$random.jpg')..writeAsBytesSync(i);
+    return f;
   }
 }

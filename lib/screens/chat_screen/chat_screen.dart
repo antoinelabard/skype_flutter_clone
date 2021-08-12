@@ -2,11 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emoji_picker/emoji_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:skype_flutter_clone/constants/strings.dart';
+import 'package:skype_flutter_clone/enum/view_state.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
 import 'package:skype_flutter_clone/models/message.dart';
+import 'package:skype_flutter_clone/provider/image_upload_provider.dart';
 import 'package:skype_flutter_clone/resources/firebase_repository.dart';
+import 'package:skype_flutter_clone/screens/chat_screen/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
+import 'package:skype_flutter_clone/utils/utils.dart';
 import 'package:skype_flutter_clone/widgets/custom_appbar.dart';
 import 'package:skype_flutter_clone/widgets/modal_tile.dart';
 
@@ -29,6 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
   var _scrollController = ScrollController();
   var showEmojiPicker = false;
   var focusNode = FocusNode();
+  late ImageUploadProvider _imageUploadProvider;
 
   @override
   void initState() {
@@ -44,12 +50,20 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    _imageUploadProvider = Provider.of(context);
+
     return Scaffold(
       backgroundColor: Constants.blackColor,
       appBar: customAppbar(context),
       body: Column(
         children: [
           Flexible(child: messageList()),
+          _imageUploadProvider.getViewState == ViewState.LOADING
+              ? Container(
+                  padding: EdgeInsets.only(right: 15),
+                  alignment: Alignment.centerRight,
+                  child: CircularProgressIndicator())
+              : Container(),
           chatControls(),
           showEmojiPicker ? Container(child: emojiPicker()) : Container()
         ],
@@ -147,7 +161,9 @@ class _ChatScreenState extends State<ChatScreen> {
             isWriting
                 ? Container()
                 : GestureDetector(
-                    onTap: () => pickImage(ImageSource.camera),
+                    onTap: () {
+                      pickImage(source: ImageSource.camera);
+                    },
                     child: Icon(Icons.camera_alt)),
             isWriting
                 ? Container(
@@ -276,29 +292,36 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: ListView(
                   children: [
                     ModalTile(
-                        title: "Media",
-                        subTitle: "Share photos and videos",
-                        iconData: Icons.image),
+                      title: "Media",
+                      subTitle: "Share photos and videos",
+                      iconData: Icons.image,
+                      onTap: () => pickImage(source: ImageSource.gallery),
+                    ),
                     ModalTile(
                         title: "File",
                         subTitle: "Share a file",
-                        iconData: Icons.image),
+                        iconData: Icons.tab,
+                        onTap: () {}),
                     ModalTile(
                         title: "Contact",
                         subTitle: "Share contact",
-                        iconData: Icons.image),
+                        iconData: Icons.contacts,
+                        onTap: () {}),
                     ModalTile(
                         title: "Location",
                         subTitle: "Share a location",
-                        iconData: Icons.image),
+                        iconData: Icons.add_location,
+                        onTap: () {}),
                     ModalTile(
                         title: "Schedule Call",
                         subTitle: "Arrange a call and get reminders",
-                        iconData: Icons.image),
+                        iconData: Icons.schedule,
+                        onTap: () {}),
                     ModalTile(
                         title: "Create poll",
                         subTitle: "Share polls",
-                        iconData: Icons.image),
+                        iconData: Icons.poll,
+                        onTap: () {}),
                   ],
                 ))
               ],
@@ -322,10 +345,16 @@ class _ChatScreenState extends State<ChatScreen> {
     _repository.addMessageToDb(message, sender, widget.receiver);
   }
 
-  getMessage(Message message) => Text(
-        message.message,
-        style: TextStyle(color: Colors.white, fontSize: 16),
-      );
+  getMessage(Message message) {
+    return message.type != MESSAGE_TYPE_IMAGE
+        ? Text(
+            message.message,
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          )
+        : message.photoUrl != ""
+            ? CachedImage(url: message.photoUrl)
+            : Text("Dead link");
+  }
 
   emojiPicker() => EmojiPicker(
         bgColor: Constants.separatorColor,
@@ -357,5 +386,12 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
-  pickImage(ImageSource camera) {}
+  pickImage({required ImageSource source}) async {
+    var selectedImage = await Utils.pickImage(source: source);
+    _repository.uploadImage(
+        image: selectedImage,
+        receiverId: widget.receiver.uid!,
+        senderId: _currentUserId,
+        imageUploadProvider: _imageUploadProvider);
+  }
 }
