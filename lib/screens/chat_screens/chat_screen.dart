@@ -11,6 +11,7 @@ import 'package:skype_flutter_clone/provider/image_upload_provider.dart';
 import 'package:skype_flutter_clone/resources/firebase_repository.dart';
 import 'package:skype_flutter_clone/screens/chat_screens/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
+import 'package:skype_flutter_clone/utils/call_utils.dart';
 import 'package:skype_flutter_clone/utils/utils.dart';
 import 'package:skype_flutter_clone/widgets/custom_appbar.dart';
 import 'package:skype_flutter_clone/widgets/modal_tile.dart';
@@ -76,7 +77,8 @@ class _ChatScreenState extends State<ChatScreen> {
       actions: [
         IconButton(
           icon: Icon(Icons.video_call),
-          onPressed: () {},
+          onPressed: () => CallUtils.dial(
+              from: sender, to: widget.receiver, context: context),
         ),
         IconButton(
           icon: Icon(Icons.phone),
@@ -219,7 +221,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  senderLayout(Message messsage) {
+  senderLayout(Message message) {
     var messageRadius = Radius.circular(10);
     return Container(
       margin: EdgeInsets.only(top: 12),
@@ -233,7 +235,7 @@ class _ChatScreenState extends State<ChatScreen> {
           topRight: messageRadius,
         ),
       ),
-      child: Padding(padding: EdgeInsets.all(10), child: getMessage(messsage)),
+      child: Padding(padding: EdgeInsets.all(10), child: getMessage(message)),
     );
   }
 

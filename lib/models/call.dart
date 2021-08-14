@@ -16,7 +16,7 @@ class Call {
     required this.receiverName,
     required this.receiverPic,
     required this.channelId,
-    required this.hasDialed,
+    this.hasDialed = false,
   });
 
   toMap() {
