@@ -15,6 +15,7 @@ class FirebaseMethods {
   GoogleSignIn _googleSignIn = GoogleSignIn();
   static final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   late Reference _firebaseReference;
+  var _userCollection = firebaseFirestore.collection(USERS_COLLECTION);
 
   Future<User> getCurrentUser() async {
     User currentUser = _auth.currentUser!;
@@ -131,5 +132,13 @@ class FirebaseMethods {
         .doc(_message.receiverId)
         .collection(_message.senderId)
         .add(_map);
+  }
+
+  Future<LocalUser> getUserDetails() async {
+    User currentUser = getCurrentUser() as User;
+
+    var documentSnapshot = await _userCollection.doc(currentUser.uid).get();
+
+    return LocalUser.fromMap(documentSnapshot.data()!);
   }
 }
