@@ -6,6 +6,9 @@ class Callmethods {
   final CollectionReference callCollection =
       FirebaseFirestore.instance.collection(CALL_COLLECTION);
 
+  Stream<DocumentSnapshot> callStream({required String uid}) =>
+      callCollection.doc(uid).snapshots();
+
   Future<bool> makeCall({required Call call}) async {
     try {
       call.hasDialed = true;
