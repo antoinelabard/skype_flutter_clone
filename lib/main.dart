@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skype_flutter_clone/provider/image_upload_provider.dart';
+import 'package:skype_flutter_clone/provider/user_provider.dart';
 import 'package:skype_flutter_clone/resources/firebase_repository.dart';
 import 'package:skype_flutter_clone/screens/home_screen.dart';
 import 'package:skype_flutter_clone/screens/login_screen.dart';
@@ -28,8 +29,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     // _fireBaseRepository
     // .signOut(); // For test only. Remove to keep the user logged in
-    return ChangeNotifierProvider<ImageUploadProvider>(
-      create: (context) => ImageUploadProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ImageUploadProvider()),
+        ChangeNotifierProvider(create: (context) => UserProvider())
+      ],
       child: MaterialApp(
         initialRoute: "/",
         theme: ThemeData(brightness: Brightness.dark),
