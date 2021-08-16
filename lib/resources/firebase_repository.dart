@@ -23,14 +23,15 @@ class FireBaseRepository {
   Future<List<LocalUser>> fetchAllUsers(User currentUser) =>
       _firebaseMethods.fetchAllUser(currentUser);
 
-  Future<void> addMessageToDb(Message message, LocalUser sender,
-      LocalUser receiver) async =>
+  Future<void> addMessageToDb(
+          Message message, LocalUser sender, LocalUser receiver) async =>
       _firebaseMethods.addMessageToDb(message, sender, receiver);
 
-  uploadImage({required File image,
-    required String receiverId,
-    required String senderId,
-    required ImageUploadProvider imageUploadProvider}) =>
+  uploadImage(
+          {required File image,
+          required String receiverId,
+          required String senderId,
+          required ImageUploadProvider imageUploadProvider}) =>
       _firebaseMethods.uploadImage(
           image, receiverId, senderId, imageUploadProvider);
 
