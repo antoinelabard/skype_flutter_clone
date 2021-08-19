@@ -135,10 +135,8 @@ class FirebaseMethods {
   }
 
   Future<LocalUser> getUserDetails() async {
-    User currentUser = getCurrentUser() as User;
-
+    User currentUser = await getCurrentUser();
     var documentSnapshot = await _userCollection.doc(currentUser.uid).get();
-
     return LocalUser.fromMap(documentSnapshot.data()!);
   }
 }

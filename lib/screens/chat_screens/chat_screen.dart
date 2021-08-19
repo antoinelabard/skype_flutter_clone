@@ -12,6 +12,7 @@ import 'package:skype_flutter_clone/resources/firebase_repository.dart';
 import 'package:skype_flutter_clone/screens/chat_screens/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
 import 'package:skype_flutter_clone/utils/call_utils.dart';
+import 'package:skype_flutter_clone/utils/permissions.dart';
 import 'package:skype_flutter_clone/utils/utils.dart';
 import 'package:skype_flutter_clone/widgets/custom_appbar.dart';
 import 'package:skype_flutter_clone/widgets/modal_tile.dart';
@@ -77,8 +78,11 @@ class _ChatScreenState extends State<ChatScreen> {
       actions: [
         IconButton(
           icon: Icon(Icons.video_call),
-          onPressed: () => CallUtils.dial(
-              from: sender, to: widget.receiver, context: context),
+          onPressed: () async =>
+              await Permissions.cameraAndMicrophonePermissionsGranted()
+                  ? CallUtils.dial(
+                      from: sender, to: widget.receiver, context: context)
+                  : {},
         ),
         IconButton(
           icon: Icon(Icons.phone),
@@ -351,7 +355,7 @@ class _ChatScreenState extends State<ChatScreen> {
             style: TextStyle(color: Colors.white, fontSize: 16),
           )
         : message.photoUrl != ""
-            ? CachedImage(url: message.photoUrl)
+            ? CachedImage(message.photoUrl)
             : Text("Dead link");
   }
 

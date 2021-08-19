@@ -7,10 +7,7 @@ class UserProvider with ChangeNotifier {
 
   LocalUser? _user;
 
-  getUser() {
-    refreshUser();
-    return _user;
-  }
+  getUser() => _user;
 
   void refreshUser() async {
     LocalUser user = await _fireBaseRepository.getUserDetails();
