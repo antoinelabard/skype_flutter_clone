@@ -24,7 +24,7 @@ class CallScreen extends StatefulWidget {
 }
 
 class _CallScreenState extends State<CallScreen> {
-  var callMethods = Callmethods();
+  var callMethods = CallMethods();
 
   late UserProvider userProvider;
   late StreamSubscription callStreamSubscription;

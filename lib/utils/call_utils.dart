@@ -8,7 +8,7 @@ import 'package:skype_flutter_clone/screens/call_screens/call_screen.dart';
 
 class CallUtils {
   static dial({required LocalUser from, required LocalUser to, context}) async {
-    var callMethods = Callmethods();
+    var callMethods = CallMethods();
     var call = Call(
         callerId: from.uid!,
         callerName: from.name!,

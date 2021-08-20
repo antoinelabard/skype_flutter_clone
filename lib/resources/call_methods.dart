@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:skype_flutter_clone/constants/strings.dart';
 import 'package:skype_flutter_clone/models/call.dart';
 
-class Callmethods {
+class CallMethods {
   final CollectionReference callCollection =
       FirebaseFirestore.instance.collection(CALL_COLLECTION);
 

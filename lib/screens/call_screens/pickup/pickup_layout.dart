@@ -8,7 +8,7 @@ import 'package:skype_flutter_clone/screens/call_screens/pickup/pickup_screen.da
 
 class PickupLayout extends StatelessWidget {
   final Widget scaffold;
-  final callMethods = Callmethods();
+  final callMethods = CallMethods();
 
   PickupLayout({Key? key, required this.scaffold}) : super(key: key);
 

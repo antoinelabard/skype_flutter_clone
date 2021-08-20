@@ -7,7 +7,7 @@ import 'package:skype_flutter_clone/utils/permissions.dart';
 
 class PickupScreen extends StatelessWidget {
   final Call call;
-  var callMethods = Callmethods();
+  var callMethods = CallMethods();
 
   PickupScreen({Key? key, required this.call}) : super(key: key);
 
