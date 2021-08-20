@@ -19,22 +19,18 @@ class Permissions {
 
   static Future<PermissionStatus> _getCameraPermission() async {
     PermissionStatus permission = await Permission.camera.status;
-    if (permission != PermissionStatus.granted) {
-      var permissionStatus = await Permission.camera.request();
-      return permissionStatus;
-    } else {
+    if (permission != PermissionStatus.granted)
+      return await Permission.camera.request();
+    else
       return permission;
-    }
   }
 
   static Future<PermissionStatus> _getMicrophonePermission() async {
-    var permission = await Permission.microphone.status;
-    if (permission != PermissionStatus.granted) {
-      var permissionStatus = await Permission.camera.status;
-      return permissionStatus;
-    } else {
+    PermissionStatus permission = await Permission.microphone.status;
+    if (permission != PermissionStatus.granted)
+      return await Permission.microphone.request();
+    else
       return permission;
-    }
   }
 
   static void _handleInvalidPermissions(
