@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skype_flutter_clone/resources/firebase_repository.dart';
+import 'package:skype_flutter_clone/resources/auth_methods.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
 import 'package:skype_flutter_clone/utils/utils.dart';
 import 'package:skype_flutter_clone/widgets/chat_list_container.dart';
@@ -7,23 +7,23 @@ import 'package:skype_flutter_clone/widgets/custom_appbar.dart';
 import 'package:skype_flutter_clone/widgets/new_chat_button.dart';
 import 'package:skype_flutter_clone/widgets/user_circle.dart';
 
-class ChatScreenList extends StatefulWidget {
-  const ChatScreenList({Key? key}) : super(key: key);
+class ChatListScreen extends StatefulWidget {
+  const ChatListScreen({Key? key}) : super(key: key);
 
   @override
-  _ChatScreenListState createState() => _ChatScreenListState();
+  _ChatListScreenState createState() => _ChatListScreenState();
 }
 
-final FireBaseRepository _repository = FireBaseRepository();
 
-class _ChatScreenListState extends State<ChatScreenList> {
+class _ChatListScreenState extends State<ChatListScreen> {
   late String currentUserId;
   late String initials;
+  final _authMethods = AuthMethods();
 
   @override
   void initState() {
     super.initState();
-    _repository.getCurrentUser().then((user) {
+    _authMethods.getCurrentUser().then((user) {
       setState(() {
         currentUserId = user.uid;
         initials = Utils.getInitials(user.displayName!);
