@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skype_flutter_clone/provider/image_upload_provider.dart';
 import 'package:skype_flutter_clone/provider/user_provider.dart';
+import 'package:skype_flutter_clone/resources/auth_methods.dart';
 import 'package:skype_flutter_clone/resources/firebase_repository.dart';
 import 'package:skype_flutter_clone/screens/home_screen.dart';
 import 'package:skype_flutter_clone/screens/login_screen.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  FireBaseRepository _fireBaseRepository = FireBaseRepository();
+  final _authMethods = AuthMethods();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class _MyAppState extends State<MyApp> {
           '/search_screen': (context) => SearchScreen(),
         },
         home: FutureBuilder(
-          future: _fireBaseRepository.getCurrentUser(),
+          future: _authMethods.getCurrentUser(),
           builder: (context, AsyncSnapshot<User> snapshot) {
             if (snapshot.hasData) {
               return HomeScreen();

@@ -4,7 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:skype_flutter_clone/provider/user_provider.dart';
 import 'package:skype_flutter_clone/screens/call_screens/pickup/pickup_layout.dart';
-import 'package:skype_flutter_clone/screens/page_views/chat_screen_list.dart';
+import 'package:skype_flutter_clone/screens/page_views/chat_list_screen.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
           body: PageView(
             children: [
               Container(
-                child: ChatScreenList(),
+                child: ChatListScreen(),
               ),
               Center(
                   child:

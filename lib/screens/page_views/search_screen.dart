@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
+import 'package:skype_flutter_clone/resources/auth_methods.dart';
 import 'package:skype_flutter_clone/resources/firebase_repository.dart';
 import 'package:skype_flutter_clone/screens/chat_screens/chat_screen.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
@@ -14,6 +15,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   FireBaseRepository _repository = FireBaseRepository();
+  final _authMethods = AuthMethods();
   late List<LocalUser> userList;
   String query = "";
   TextEditingController searchController = TextEditingController();
@@ -21,8 +23,8 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     super.initState();
-    _repository.getCurrentUser().then((user) {
-      _repository.fetchAllUsers(user).then((List<LocalUser> list) {
+    _authMethods.getCurrentUser().then((user) {
+      _authMethods.fetchAllUsers(user).then((List<LocalUser> list) {
         setState(() {
           userList = list;
         });
