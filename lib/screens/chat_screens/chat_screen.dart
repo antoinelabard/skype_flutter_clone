@@ -9,6 +9,7 @@ import 'package:skype_flutter_clone/models/local_user.dart';
 import 'package:skype_flutter_clone/models/message.dart';
 import 'package:skype_flutter_clone/provider/image_upload_provider.dart';
 import 'package:skype_flutter_clone/resources/auth_methods.dart';
+import 'package:skype_flutter_clone/resources/chat_methods.dart';
 import 'package:skype_flutter_clone/resources/firebase_repository.dart';
 import 'package:skype_flutter_clone/screens/chat_screens/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
@@ -33,6 +34,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   late LocalUser sender;
   var _repository = FireBaseRepository();
+  final _chatMethods = ChatMethods();
   final _authMethods = AuthMethods();
   late String _currentUserId;
   var _scrollController = ScrollController();
@@ -347,7 +349,7 @@ class _ChatScreenState extends State<ChatScreen> {
       _textEditingController.text = "";
     });
 
-    _repository.addMessageToDb(message, sender, widget.receiver);
+    _chatMethods.addMessageToDb(message, sender, widget.receiver);
   }
 
   getMessage(Message message) {
