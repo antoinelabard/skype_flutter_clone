@@ -10,7 +10,7 @@ import 'package:skype_flutter_clone/models/message.dart';
 import 'package:skype_flutter_clone/provider/image_upload_provider.dart';
 import 'package:skype_flutter_clone/resources/auth_methods.dart';
 import 'package:skype_flutter_clone/resources/chat_methods.dart';
-import 'package:skype_flutter_clone/resources/firebase_repository.dart';
+import 'package:skype_flutter_clone/resources/storage_methods.dart';
 import 'package:skype_flutter_clone/screens/chat_screens/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
 import 'package:skype_flutter_clone/utils/call_utils.dart';
@@ -33,7 +33,7 @@ class _ChatScreenState extends State<ChatScreen> {
   bool isWriting = false;
 
   late LocalUser sender;
-  var _repository = FireBaseRepository();
+  final _storageMethods = StorageMethods();
   final _chatMethods = ChatMethods();
   final _authMethods = AuthMethods();
   late String _currentUserId;
@@ -395,7 +395,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   pickImage({required ImageSource source}) async {
     var selectedImage = await Utils.pickImage(source: source);
-    _repository.uploadImage(
+    _storageMethods.uploadImage(
         image: selectedImage,
         receiverId: widget.receiver.uid!,
         senderId: _currentUserId,
