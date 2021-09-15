@@ -8,6 +8,7 @@ import 'package:skype_flutter_clone/enum/view_state.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
 import 'package:skype_flutter_clone/models/message.dart';
 import 'package:skype_flutter_clone/provider/image_upload_provider.dart';
+import 'package:skype_flutter_clone/resources/auth_methods.dart';
 import 'package:skype_flutter_clone/resources/firebase_repository.dart';
 import 'package:skype_flutter_clone/screens/chat_screens/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
@@ -32,6 +33,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   late LocalUser sender;
   var _repository = FireBaseRepository();
+  final _authMethods = AuthMethods();
   late String _currentUserId;
   var _scrollController = ScrollController();
   var showEmojiPicker = false;
@@ -41,7 +43,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     super.initState();
-    _repository.getCurrentUser().then((user) {
+    _authMethods.getCurrentUser().then((user) {
       _currentUserId = user.uid;
       setState(() {
         sender = LocalUser(
