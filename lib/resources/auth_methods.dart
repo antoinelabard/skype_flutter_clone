@@ -1,9 +1,9 @@
-import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:skype_flutter_clone/constants/strings.dart';
+import 'package:skype_flutter_clone/enum/user_state.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
 import 'package:skype_flutter_clone/utils/utils.dart';
 
@@ -15,7 +15,7 @@ class AuthMethods {
   static final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   static final CollectionReference _userCollection =
-  _firestore.collection(USERS_COLLECTION);
+      _firestore.collection(USERS_COLLECTION);
 
   Future<User> getCurrentUser() async {
     User currentUser;
@@ -27,7 +27,7 @@ class AuthMethods {
     User currentUser = await getCurrentUser();
 
     DocumentSnapshot documentSnapshot =
-    await _userCollection.doc(currentUser.uid).get();
+        await _userCollection.doc(currentUser.uid).get();
 
     return LocalUser.fromMap(documentSnapshot.data as Map<String, dynamic>);
   }
@@ -35,7 +35,7 @@ class AuthMethods {
   Future<User> signIn() async {
     GoogleSignInAccount? _signInAccount = await _googleSignIn.signIn();
     GoogleSignInAuthentication _signInAuthentication =
-    await _signInAccount!.authentication;
+        await _signInAccount!.authentication;
 
     final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: _signInAuthentication.accessToken,
@@ -77,10 +77,11 @@ class AuthMethods {
     List<LocalUser> userList = [];
 
     QuerySnapshot querySnapshot =
-    await firestore.collection(USERS_COLLECTION).get();
+        await firestore.collection(USERS_COLLECTION).get();
     for (var i = 0; i < querySnapshot.docs.length; i++) {
       if (querySnapshot.docs[i].id != currentUser.uid) {
-        userList.add(LocalUser.fromMap(querySnapshot.docs[i].data as Map<String, dynamic>));
+        userList.add(LocalUser.fromMap(
+            querySnapshot.docs[i].data as Map<String, dynamic>));
       }
     }
     return userList;
@@ -90,4 +91,12 @@ class AuthMethods {
     await _googleSignIn.signOut();
     return await _auth.signOut();
   }
+
+  void setUserState({required String userId, required UserState userState}) {
+    int stateNum = Utils.stateTuNum(userState);
+    _userCollection.doc(userId).update({"state": stateNum});
+  }
+
+  Stream<DocumentSnapshot> getUserStream({required String uid}) =>
+      _userCollection.doc(uid).snapshots();
 }
