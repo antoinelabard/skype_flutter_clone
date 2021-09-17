@@ -1,71 +1,95 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:skype_flutter_clone/resources/auth_methods.dart';
+import 'package:provider/provider.dart';
+import 'package:skype_flutter_clone/models/contact.dart';
+import 'package:skype_flutter_clone/provider/user_provider.dart';
+import 'package:skype_flutter_clone/resources/chat_methods.dart';
+import 'package:skype_flutter_clone/screens/call_screens/pickup/pickup_layout.dart';
+import 'package:skype_flutter_clone/screens/page_views/widgets/contact_view.dart';
+import 'package:skype_flutter_clone/screens/page_views/widgets/quiet_box.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
-import 'package:skype_flutter_clone/utils/utils.dart';
-import 'package:skype_flutter_clone/widgets/chat_list_container.dart';
 import 'package:skype_flutter_clone/widgets/custom_appbar.dart';
 import 'package:skype_flutter_clone/widgets/new_chat_button.dart';
 import 'package:skype_flutter_clone/widgets/user_circle.dart';
 
-class ChatListScreen extends StatefulWidget {
-  const ChatListScreen({Key? key}) : super(key: key);
-
+class ChatListScreen extends StatelessWidget {
   @override
-  _ChatListScreenState createState() => _ChatListScreenState();
-}
-
-
-class _ChatListScreenState extends State<ChatListScreen> {
-  late String currentUserId;
-  late String initials;
-  final _authMethods = AuthMethods();
-
-  @override
-  void initState() {
-    super.initState();
-    _authMethods.getCurrentUser().then((user) {
-      setState(() {
-        currentUserId = user.uid;
-        initials = Utils.getInitials(user.displayName!);
-      });
-    });
+  Widget build(BuildContext context) {
+    return PickupLayout(
+      scaffold: Scaffold(
+        backgroundColor: Constants.blackColor,
+        appBar: customAppBar(context),
+        floatingActionButton: NewChatButton(),
+        body: ChatListContainer(),
+      ),
+    );
   }
 
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Constants.blackColor,
-        appBar: customAppbar(context),
-        floatingActionButton: NewChatButton(),
-        body: ChatListContainer(
-          currentUserId: currentUserId,
+  CustomAppbar customAppBar(BuildContext context) {
+    return CustomAppbar(
+      leading: IconButton(
+        icon: Icon(
+          Icons.notifications,
+          color: Colors.white,
         ),
-      );
-
-  CustomAppbar customAppbar(BuildContext context) => CustomAppbar(
-        title: UserCircle(text: initials),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/search_screen");
-              },
-              icon: Icon(
-                Icons.search,
-                color: Colors.white,
-              )),
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.more_vert,
-                color: Colors.white,
-              ))
-        ],
-        leading: IconButton(
+        onPressed: () {},
+      ),
+      title: UserCircle(text: '',),
+      centerTitle: true,
+      actions: <Widget>[
+        IconButton(
           icon: Icon(
-            Icons.notifications,
+            Icons.search,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pushNamed(context, "/search_screen");
+          },
+        ),
+        IconButton(
+          icon: Icon(
+            Icons.more_vert,
             color: Colors.white,
           ),
           onPressed: () {},
         ),
-        centerTitle: true,
-      );
+      ],
+    );
+  }
+}
+
+class ChatListContainer extends StatelessWidget {
+  final ChatMethods _chatMethods = ChatMethods();
+
+  @override
+  Widget build(BuildContext context) {
+    final UserProvider userProvider = Provider.of<UserProvider>(context);
+
+    return Container(
+      child: StreamBuilder<QuerySnapshot>(
+          stream: _chatMethods.fetchContacts(
+            userId: userProvider.getUser().uid,
+          ),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              var docList = snapshot.data!.docs;
+
+              if (docList.isEmpty) {
+                return QuietBox();
+              }
+              return ListView.builder(
+                padding: EdgeInsets.all(10),
+                itemCount: docList.length,
+                itemBuilder: (context, index) {
+                  Contact contact = Contact.fromMap(docList[index].data as Map<String, dynamic>);
+
+                  return ContactView(contact: contact,);
+                },
+              );
+            }
+
+            return Center(child: CircularProgressIndicator());
+          }),
+    );
+  }
 }
