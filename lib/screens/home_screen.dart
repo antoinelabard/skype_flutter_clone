@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
+import 'package:skype_flutter_clone/enum/user_state.dart';
 import 'package:skype_flutter_clone/provider/user_provider.dart';
+import 'package:skype_flutter_clone/resources/auth_methods.dart';
 import 'package:skype_flutter_clone/screens/call_screens/pickup/pickup_layout.dart';
 import 'package:skype_flutter_clone/screens/page_views/chat_list_screen.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
@@ -14,10 +16,11 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   late PageController pageController;
   int _page = 0;
   late UserProvider userProvider;
+  var _authMethods = AuthMethods();
 
   void initState() {
     super.initState();
@@ -25,9 +28,41 @@ class _HomeScreenState extends State<HomeScreen> {
     SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
       userProvider = Provider.of<UserProvider>(context, listen: false);
       userProvider.refreshUser();
+      _authMethods.setUserState(userId: userProvider.getUser().uid, userState: UserState.Online);
     });
 
     pageController = PageController(initialPage: 0);
+    WidgetsBinding.instance!.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance!.removeObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    String currentUserId =
+        (userProvider.getUser() != null)
+            ? userProvider.getUser().uid
+            : "";
+
+    switch (state) {
+      case AppLifecycleState.paused:
+        _authMethods.setUserState(userId: currentUserId, userState: UserState.Waiting);
+        return;
+      case AppLifecycleState.resumed:
+        _authMethods.setUserState(userId: currentUserId, userState: UserState.Online);
+        return;
+        case AppLifecycleState.inactive:
+        _authMethods.setUserState(userId: currentUserId, userState: UserState.Offline);
+        return;
+        case AppLifecycleState.detached:
+        _authMethods.setUserState(userId: currentUserId, userState: UserState.Offline);
+        return;
+    }
   }
 
   @override
