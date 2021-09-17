@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:skype_flutter_clone/models/contact.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
 import 'package:skype_flutter_clone/provider/user_provider.dart';
 import 'package:skype_flutter_clone/resources/auth_methods.dart';
@@ -7,6 +8,9 @@ import 'package:skype_flutter_clone/resources/chat_methods.dart';
 import 'package:skype_flutter_clone/screens/chat_screens/chat_screen.dart';
 import 'package:skype_flutter_clone/screens/chat_screens/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/widgets/custom_tile.dart';
+
+import 'last_message_container.dart';
+import 'online_doc_indicator.dart';
 
 class ContactView extends StatelessWidget {
   ContactView({Key? key, required this.contact}) : super(key: key);
@@ -18,7 +22,7 @@ class ContactView extends StatelessWidget {
   build(BuildContext context) {
     return FutureBuilder(builder: (context, snapshot) {
       if (snapshot.hasData) {
-        var user = snapshot.data;
+        LocalUser user = snapshot.data as LocalUser;
         return ViewLayout(contact: user);
       }
       return Center(
@@ -44,7 +48,7 @@ class ViewLayout extends StatelessWidget {
           child: Stack(
             children: [
               CachedImage(contact.profilePhoto!, radius: 80, isRound: true),
-              OnlineDotIndicator(uid: contact.uid)
+              OnlineDotIndicator(uid: contact.uid!)
             ],
           ),
         ),
@@ -54,9 +58,9 @@ class ViewLayout extends StatelessWidget {
               TextStyle(color: Colors.white, fontFamily: "Arial", fontSize: 19),
         ),
         subtitle: LastMessageContainer(
-          stream: _chatMethods.fetchLastMessageBeetween(
-            senderId: userProvider.getUser.uid,
-            receiverId: contact.uid
+          stream: _chatMethods.fetchLastMessageBetween(
+            senderId: userProvider.getUser().uid,
+            receiverId: contact.uid!
           )
         ),
       onTap: () => ChatScreen(receiver:contact),
