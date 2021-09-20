@@ -14,7 +14,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final _authMethods = AuthMethods();
-  late List<LocalUser> userList;
+  List<LocalUser>? userList;
   String query = "";
   TextEditingController searchController = TextEditingController();
 
@@ -28,6 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
         });
       }); // as FutureOr<dynamic> Function(void));
     });
+    print(userList);
   }
 
   @override
@@ -91,9 +92,9 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   buildSuggestions(String query) {
-    final List<LocalUser> suggestionList = query.isEmpty
+    final List<LocalUser> suggestionList = query.isEmpty || userList == null
         ? []
-        : userList.where((LocalUser user) {
+        : userList!.where((LocalUser user) {
             String _getUsername = user.username!.toLowerCase();
             String _query = query.toLowerCase();
             String _getName = user.name!.toLowerCase();

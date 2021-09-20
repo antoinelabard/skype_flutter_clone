@@ -78,7 +78,7 @@ class AuthMethods {
     for (var i = 0; i < querySnapshot.docs.length; i++) {
       if (querySnapshot.docs[i].id != currentUser.uid) {
         userList.add(LocalUser.fromMap(
-            querySnapshot.docs[i].data as Map<String, dynamic>));
+            querySnapshot.docs[i].data() as Map<String, dynamic>));
       }
     }
     return userList;
