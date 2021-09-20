@@ -28,8 +28,10 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
       userProvider = Provider.of<UserProvider>(context, listen: false);
       userProvider.refreshUser();
-      _authMethods.setUserState(
+      if (userProvider.getUser() != null) {
+        _authMethods.setUserState(
           userId: userProvider.getUser().uid, userState: UserState.Online);
+      }
     });
 
     pageController = PageController(initialPage: 0);

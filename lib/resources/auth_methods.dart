@@ -17,9 +17,7 @@ class AuthMethods {
       _firestore.collection(USERS_COLLECTION);
 
   Future<User> getCurrentUser() async {
-    User currentUser;
-    currentUser = await _auth.currentUser!;
-    return currentUser;
+    return _auth.currentUser!;
   }
 
   Future<LocalUser> getUserDetails() async {
@@ -28,7 +26,7 @@ class AuthMethods {
     DocumentSnapshot documentSnapshot =
         await _userCollection.doc(currentUser.uid).get();
 
-    return LocalUser.fromMap(documentSnapshot.data as Map<String, dynamic>);
+    return LocalUser.fromMap(documentSnapshot.data() as Map<String, dynamic>);
   }
 
   Future<User> signIn() async {
