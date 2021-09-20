@@ -95,6 +95,4 @@ class ChatMethods {
           .collection(receiverId)
           .orderBy("timestamp")
           .snapshots();
-
-
 }

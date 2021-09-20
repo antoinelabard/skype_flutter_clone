@@ -42,28 +42,25 @@ class ViewLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
     return CustomTile(
-        mini: false,
-        leading: Container(
-          constraints: BoxConstraints(maxHeight: 60, maxWidth: 60),
-          child: Stack(
-            children: [
-              CachedImage(contact.profilePhoto!, radius: 80, isRound: true),
-              OnlineDotIndicator(uid: contact.uid!)
-            ],
-          ),
+      mini: false,
+      leading: Container(
+        constraints: BoxConstraints(maxHeight: 60, maxWidth: 60),
+        child: Stack(
+          children: [
+            CachedImage(contact.profilePhoto!, radius: 80, isRound: true),
+            OnlineDotIndicator(uid: contact.uid!)
+          ],
         ),
-        title: Text(
-          (contact.name ?? ".."),
-          style:
-              TextStyle(color: Colors.white, fontFamily: "Arial", fontSize: 19),
-        ),
-        subtitle: LastMessageContainer(
+      ),
+      title: Text(
+        (contact.name ?? ".."),
+        style:
+            TextStyle(color: Colors.white, fontFamily: "Arial", fontSize: 19),
+      ),
+      subtitle: LastMessageContainer(
           stream: _chatMethods.fetchLastMessageBetween(
-            senderId: userProvider.getUser().uid,
-            receiverId: contact.uid!
-          )
-        ),
-      onTap: () => ChatScreen(receiver:contact),
+              senderId: userProvider.getUser().uid, receiverId: contact.uid!)),
+      onTap: () => ChatScreen(receiver: contact),
     );
   }
 }

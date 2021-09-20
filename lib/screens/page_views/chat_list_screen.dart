@@ -34,7 +34,9 @@ class ChatListScreen extends StatelessWidget {
         ),
         onPressed: () {},
       ),
-      title: UserCircle(text: '',),
+      title: UserCircle(
+        text: '',
+      ),
       centerTitle: true,
       actions: <Widget>[
         IconButton(
@@ -81,9 +83,12 @@ class ChatListContainer extends StatelessWidget {
                 padding: EdgeInsets.all(10),
                 itemCount: docList.length,
                 itemBuilder: (context, index) {
-                  Contact contact = Contact.fromMap(docList[index].data as Map<String, dynamic>);
+                  Contact contact = Contact.fromMap(
+                      docList[index].data as Map<String, dynamic>);
 
-                  return ContactView(contact: contact,);
+                  return ContactView(
+                    contact: contact,
+                  );
                 },
               );
             }

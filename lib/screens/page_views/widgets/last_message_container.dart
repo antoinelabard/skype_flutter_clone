@@ -11,30 +11,26 @@ class LastMessageContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
         stream: stream,
-        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot)
-    {
-      if (snapshot.hasData) {
-        var docList = snapshot.data!.docs;
-        if (docList.isNotEmpty) {
-          var message = Message.fromMap(
-              docList.last.data() as Map<String, dynamic>);
-          return SizedBox(width: MediaQuery
-              .of(context)
-              .size
-              .width * .6,
-            child: Text(
-              message.message,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  color: Colors.grey, fontSize: 14
-              ),
-            ),);
-        }
-        return Text(
-            "No message", style: TextStyle(color: Colors.grey, fontSize: 14));
-      }
-      return Text("..", style: TextStyle(color: Colors.grey, fontSize: 14));
-    });
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasData) {
+            var docList = snapshot.data!.docs;
+            if (docList.isNotEmpty) {
+              var message =
+                  Message.fromMap(docList.last.data() as Map<String, dynamic>);
+              return SizedBox(
+                width: MediaQuery.of(context).size.width * .6,
+                child: Text(
+                  message.message,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: Colors.grey, fontSize: 14),
+                ),
+              );
+            }
+            return Text("No message",
+                style: TextStyle(color: Colors.grey, fontSize: 14));
+          }
+          return Text("..", style: TextStyle(color: Colors.grey, fontSize: 14));
+        });
   }
 }

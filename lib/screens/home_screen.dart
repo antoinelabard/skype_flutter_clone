@@ -28,7 +28,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
       userProvider = Provider.of<UserProvider>(context, listen: false);
       userProvider.refreshUser();
-      _authMethods.setUserState(userId: userProvider.getUser().uid, userState: UserState.Online);
+      _authMethods.setUserState(
+          userId: userProvider.getUser().uid, userState: UserState.Online);
     });
 
     pageController = PageController(initialPage: 0);
@@ -45,22 +46,24 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     String currentUserId =
-        (userProvider.getUser() != null)
-            ? userProvider.getUser().uid
-            : "";
+        (userProvider.getUser() != null) ? userProvider.getUser().uid : "";
 
     switch (state) {
       case AppLifecycleState.paused:
-        _authMethods.setUserState(userId: currentUserId, userState: UserState.Waiting);
+        _authMethods.setUserState(
+            userId: currentUserId, userState: UserState.Waiting);
         return;
       case AppLifecycleState.resumed:
-        _authMethods.setUserState(userId: currentUserId, userState: UserState.Online);
+        _authMethods.setUserState(
+            userId: currentUserId, userState: UserState.Online);
         return;
-        case AppLifecycleState.inactive:
-        _authMethods.setUserState(userId: currentUserId, userState: UserState.Offline);
+      case AppLifecycleState.inactive:
+        _authMethods.setUserState(
+            userId: currentUserId, userState: UserState.Offline);
         return;
-        case AppLifecycleState.detached:
-        _authMethods.setUserState(userId: currentUserId, userState: UserState.Offline);
+      case AppLifecycleState.detached:
+        _authMethods.setUserState(
+            userId: currentUserId, userState: UserState.Offline);
         return;
     }
   }

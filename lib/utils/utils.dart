@@ -35,7 +35,7 @@ class Utils {
     switch (userState) {
       case UserState.Offline:
         return 0;
-        case UserState.Online:
+      case UserState.Online:
         return 1;
       default:
         return 2;

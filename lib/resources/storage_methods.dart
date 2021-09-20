@@ -37,5 +37,4 @@ class StorageMethods {
       return null;
     }
   }
-
 }
