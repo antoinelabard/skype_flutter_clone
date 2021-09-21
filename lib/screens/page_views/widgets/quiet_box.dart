@@ -33,9 +33,9 @@ class QuietBox extends StatelessWidget {
               TextButton(
                 onPressed: () => Navigator.push(context,
                     MaterialPageRoute(builder: (context) => SearchScreen())),
-                child: Text("START SEARCHING"),
+                child: Text("START SEARCHING", style: (TextStyle(color: Colors.white)),),
                 style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.red)),
+                    backgroundColor: MaterialStateProperty.all(Colors.blue)),
               )
             ],
           ),
