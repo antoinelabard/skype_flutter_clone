@@ -51,7 +51,7 @@ class AuthMethods {
     final List<DocumentSnapshot> docs = result.docs;
 
     //if user is registered then length of list > 0 or else less than 0
-    return docs.length == 0 ? true : false;
+    return docs.length == 0;
   }
 
   Future<void> addDataToDb(User currentUser) async {
@@ -96,4 +96,14 @@ class AuthMethods {
 
   Stream<DocumentSnapshot> getUserStream({required String uid}) =>
       _userCollection.doc(uid).snapshots();
+
+  Future<LocalUser?>? getUserDetailsById(String id) async {
+    try {
+      var documentSnapshot = await _userCollection.doc(id).get();
+      return LocalUser.fromMap(documentSnapshot.data() as Map<String, dynamic>);
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }
