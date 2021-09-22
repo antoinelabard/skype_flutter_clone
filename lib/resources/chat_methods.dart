@@ -23,6 +23,8 @@ class ChatMethods {
         .doc(message.receiverId)
         .collection(message.senderId)
         .add(map);
+
+    addToContacts(senderId: message.senderId, receiverId: message.receiverId);
   }
 
   void setImageMsg(String url, String receiverId, String senderId) async {
@@ -49,14 +51,15 @@ class ChatMethods {
         .doc(message.receiverId)
         .collection(message.senderId)
         .add(map);
+
+    addToContacts(senderId: message.senderId, receiverId: message.receiverId);
   }
 
   addToContacts({required String senderId, required String receiverId}) async {
     Timestamp currentTime = Timestamp.now();
-    _userCollection
-        .doc(senderId)
-        .collection(CONTACTS_COLLECTION)
-        .doc(receiverId);
+
+    await addToSendersContacts(senderId, receiverId, currentTime);
+    await addToReceiversContacts(senderId, receiverId, currentTime);
   }
 
   getContactsDocument({required String of, required String forContact}) =>
@@ -69,7 +72,7 @@ class ChatMethods {
       Contact receiverContact = Contact(uid: receiverId, addedOn: currentTime);
       var receiverMap = receiverContact.toMap();
       await getContactsDocument(of: senderId, forContact: receiverId)
-          .setData(receiverMap);
+          .set(receiverMap);
     }
   }
 
@@ -81,7 +84,7 @@ class ChatMethods {
       Contact senderContact = Contact(uid: senderId, addedOn: currentTime);
       var senderMap = senderContact.toMap();
       await getContactsDocument(of: receiverId, forContact: senderId)
-          .setData(senderMap);
+          .set(senderMap);
     }
   }
 

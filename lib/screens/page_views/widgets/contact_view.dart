@@ -20,7 +20,9 @@ class ContactView extends StatelessWidget {
 
   @override
   build(BuildContext context) {
-    return FutureBuilder(builder: (context, snapshot) {
+    return FutureBuilder(
+        future: _authMethods.getUserDetailsById(contact.uid),
+        builder: (context, snapshot) {
       if (snapshot.hasData) {
         LocalUser user = snapshot.data as LocalUser;
         return ViewLayout(contact: user);
