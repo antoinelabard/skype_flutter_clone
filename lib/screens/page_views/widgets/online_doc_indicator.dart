@@ -13,7 +13,10 @@ class OnlineDotIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getColor(int state) {
+    getColor(int? state) {
+      if (state == null) {
+        return Colors.orange;
+      }
       switch (Utils.numToState(state)) {
         case UserState.Offline:
           return Colors.red;
@@ -39,7 +42,7 @@ class OnlineDotIndicator extends StatelessWidget {
               width: 10,
               margin: EdgeInsets.only(right: 5, top: 5),
               decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: getColor(user.state!)),
+                  shape: BoxShape.circle, color: getColor(user.state)),
             );
           }),
     );
