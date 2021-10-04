@@ -13,38 +13,41 @@ class UserCircle extends StatelessWidget {
     final userProvider = Provider.of<UserProvider>(context);
     userProvider.refreshUser();
     return GestureDetector(
-        onTap: () => showModalBottomSheet(
-            context: context,
-            backgroundColor: Constants.blackColor,
-            builder: (context) => UserDetailsContainer(
-                  isScrollControlled: true,
-                )),
-        child: Container(
-          height: 40,
-          width: 40,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: Constants.separatorColor),
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: CachedImage(userProvider.getUser().profilePhoto, isRound: true, ),
+      onTap: () => showModalBottomSheet(
+          context: context,
+          backgroundColor: Constants.blackColor,
+          builder: (context) => UserDetailsContainer(
+                isScrollControlled: true,
+              )),
+      child: Container(
+        height: 40,
+        width: 40,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            color: Constants.separatorColor),
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: CachedImage(
+                userProvider.getUser().profilePhoto,
+                isRound: true,
               ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Container(
-                  height: 12,
-                  width: 12,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Constants.blackColor, width: 2),
-                      color: Constants.onlineDotColor),
-                ),
-              )
-            ],
-          ),
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Container(
+                height: 12,
+                width: 12,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Constants.blackColor, width: 2),
+                    color: Constants.onlineDotColor),
+              ),
+            )
+          ],
         ),
-      );
+      ),
+    );
   }
 }
