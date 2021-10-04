@@ -34,9 +34,7 @@ class ChatListScreen extends StatelessWidget {
         ),
         onPressed: () {},
       ),
-      title: UserCircle(
-        text: '',
-      ),
+      title: UserCircle(),
       centerTitle: true,
       actions: <Widget>[
         IconButton(

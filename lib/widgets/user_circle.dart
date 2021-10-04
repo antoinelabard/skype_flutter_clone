@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:skype_flutter_clone/provider/user_provider.dart';
+import 'package:skype_flutter_clone/screens/chat_screens/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/screens/page_views/widgets/user_details_container.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
 
 class UserCircle extends StatelessWidget {
-  final String text;
-
-  const UserCircle({Key? key, required this.text}) : super(key: key);
+  const UserCircle({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
+  Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    userProvider.refreshUser();
+    return GestureDetector(
         onTap: () => showModalBottomSheet(
             context: context,
             backgroundColor: Constants.blackColor,
@@ -25,13 +29,7 @@ class UserCircle extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.center,
-                child: Text(
-                  text,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Constants.lightBlueColor,
-                      fontSize: 13),
-                ),
+                child: CachedImage(userProvider.getUser().profilePhoto, isRound: true, ),
               ),
               Align(
                 alignment: Alignment.bottomRight,
@@ -48,4 +46,5 @@ class UserCircle extends StatelessWidget {
           ),
         ),
       );
+  }
 }
