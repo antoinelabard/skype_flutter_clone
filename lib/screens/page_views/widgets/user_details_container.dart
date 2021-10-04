@@ -9,28 +9,35 @@ import 'package:skype_flutter_clone/screens/page_views/widgets/shimmering_logo.d
 import 'package:skype_flutter_clone/widgets/custom_appbar.dart';
 
 class UserDetailsContainer extends StatelessWidget {
-  const UserDetailsContainer({Key? key, required i, required this.isScrollControlled}) : super(key: key);
+  const UserDetailsContainer({Key? key, required this.isScrollControlled})
+      : super(key: key);
 
   final bool isScrollControlled;
 
   @override
   Widget build(BuildContext context) {
-   signOut() async {
-     final bool isLoggedOut = await AuthMethods().signOut();
-     if (isLoggedOut) {
-       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LoginScreen() ), (route) => false);
-     }
-   }
+    signOut() async {
+      final bool isLoggedOut = await AuthMethods().signOut();
+      if (isLoggedOut) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+            (route) => false);
+      }
+    }
+
     return Container(
       margin: EdgeInsets.only(top: 25),
       child: Column(
         children: [
           CustomAppbar(
               title: ShimmeringLogo(),
-              actions: [TextButton(
-                  onPressed: () => signOut(),
-                  child: Text("Sign out",
-                  style: TextStyle(color: Colors.white, fontSize: 12)))],
+              actions: [
+                TextButton(
+                    onPressed: () => signOut(),
+                    child: Text("Sign out",
+                        style: TextStyle(color: Colors.white, fontSize: 12)))
+              ],
               leading: IconButton(
                 icon: Icon(
                   Icons.arrow_back,
@@ -56,21 +63,37 @@ class UserDetailsBody extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       child: Row(
-        children: [CachedImage(user.profilePhoto??"",
-          isRound: true,
-          radius: 50,
-        ),
-          SizedBox(width: 15,),
+        children: [
+          CachedImage(
+            user.profilePhoto ?? "",
+            isRound: true,
+            radius: 50,
+          ),
+          SizedBox(
+            width: 15,
+          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-            Text(user.name??"",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-              color: Colors.white
-            ),)
-          ],)
+              Text(
+                user.name ?? "",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.white),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                user.email ?? "",
+                style: TextStyle(
+                    // fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                    color: Colors.white),
+              )
+            ],
+          )
         ],
       ),
     );

@@ -23,14 +23,14 @@ class ContactView extends StatelessWidget {
     return FutureBuilder(
         future: _authMethods.getUserDetailsById(contact.uid),
         builder: (context, snapshot) {
-      if (snapshot.hasData) {
-        LocalUser user = snapshot.data as LocalUser;
-        return ViewLayout(contact: user);
-      }
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    });
+          if (snapshot.hasData) {
+            LocalUser user = snapshot.data as LocalUser;
+            return ViewLayout(contact: user);
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
   }
 }
 

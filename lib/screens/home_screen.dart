@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       await userProvider.refreshUser();
       if (userProvider.getUser() != null) {
         _authMethods.setUserState(
-          userId: userProvider.getUser().uid, userState: UserState.Online);
+            userId: userProvider.getUser().uid, userState: UserState.Online);
       }
     });
 
