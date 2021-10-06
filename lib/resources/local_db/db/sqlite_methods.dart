@@ -4,6 +4,7 @@ import 'package:skype_flutter_clone/resources/local_db/interface/log_interface.d
 class SqliteMethods implements LogInterface {
   @override
   addLogs(Log log) {
+    print("Data added to SQlite database.");
     // TODO: implement addLogs
     throw UnimplementedError();
   }
@@ -28,6 +29,7 @@ class SqliteMethods implements LogInterface {
 
   @override
   init() {
+    print("SQlite database initialised.");
     // TODO: implement init
     throw UnimplementedError();
   }
