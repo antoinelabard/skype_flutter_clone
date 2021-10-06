@@ -12,27 +12,17 @@ class LogRepository implements LogInterface{
   }
 
   @override
-  addLogs(Log log) {
-    dbObject.addLogs(log);
-  }
+  addLogs(Log log) => dbObject.addLogs(log);
 
   @override
-  close() {
-    dbObject.close();
-  }
+  close() => dbObject.close();
 
   @override
-  deleteLogs(int logId) {
-    dbObject.deleteLogs(logId);
-  }
+  deleteLogs(int logId) => dbObject.deleteLogs(logId);
 
   @override
-  Future<List<Log>> getLogs() {
-    return dbObject.getLogs();
-  }
+  Future<List<Log>> getLogs() => dbObject.getLogs();
 
   @override
-  init() {
-    dbObject.init();
-  }
+  init() => dbObject.init();
 }
