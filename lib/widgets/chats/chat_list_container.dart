@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
 
-import 'custom_tile.dart';
+import '../custom_tile.dart';
 
 class ChatListContainer extends StatefulWidget {
   final String currentUserId;
