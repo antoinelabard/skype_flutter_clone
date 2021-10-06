@@ -8,13 +8,13 @@ class Log {
   late String timestamp;
 
   Log({
-    required this.logId,
-    required this.callerName,
-    required this.callerPic,
-    required this.receiverName,
-    required this.receiverPic,
-    required this.callStatus,
-    required this.timestamp,
+     this.logId = 0,
+     this.callerName = "",
+     this.callerPic = "",
+     this.receiverName = "",
+     this.receiverPic = "",
+     this.callStatus = "",
+     this.timestamp = "",
   });
 
   // to map
