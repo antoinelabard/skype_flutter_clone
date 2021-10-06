@@ -3,26 +3,22 @@ import 'package:skype_flutter_clone/resources/local_db/db/hive_methods.dart';
 import 'package:skype_flutter_clone/resources/local_db/db/sqlite_methods.dart';
 import 'package:skype_flutter_clone/resources/local_db/interface/log_interface.dart';
 
-class LogRepository implements LogInterface{
+class LogRepository {
   static late LogInterface dbObject;
-  bool isHive;
+  late bool isHive;
 
-  LogRepository({required this.isHive}) {
+  LogRepository();
+
+  init({required bool isHive}) {
     dbObject = isHive ? HiveMethods() : SqliteMethods();
+    dbObject.init();
   }
 
-  @override
   addLogs(Log log) => dbObject.addLogs(log);
 
-  @override
   close() => dbObject.close();
 
-  @override
   deleteLogs(int logId) => dbObject.deleteLogs(logId);
 
-  @override
   Future<List<Log>> getLogs() => dbObject.getLogs();
-
-  @override
-  init() => dbObject.init();
 }
