@@ -8,6 +8,7 @@ import 'package:skype_flutter_clone/resources/auth_methods.dart';
 import 'package:skype_flutter_clone/screens/call_screens/pickup/pickup_layout.dart';
 import 'package:skype_flutter_clone/screens/page_views/chat_list_screen.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
+import 'package:skype_flutter_clone/widgets/logs/widgets/log_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -77,12 +78,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           backgroundColor: Constants.blackColor,
           body: PageView(
             children: [
-              Container(
-                child: ChatListScreen(),
-              ),
-              Center(
-                  child:
-                      Text("Calls log", style: TextStyle(color: Colors.white))),
+              ChatListScreen(),
+              LogScreen(),
               Center(
                   child:
                       Text("Contacts", style: TextStyle(color: Colors.white))),
