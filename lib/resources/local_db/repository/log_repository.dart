@@ -9,16 +9,16 @@ class LogRepository {
 
   LogRepository();
 
-  init({required bool isHive}) {
+  static init({required bool isHive}) {
     dbObject = isHive ? HiveMethods() : SqliteMethods();
     dbObject.init();
   }
 
-  addLogs(Log log) => dbObject.addLogs(log);
+  static addLogs(Log log) => dbObject.addLogs(log);
 
-  close() => dbObject.close();
+  static close() => dbObject.close();
 
-  deleteLogs(int logId) => dbObject.deleteLogs(logId);
+  static deleteLogs(int logId) => dbObject.deleteLogs(logId);
 
-  Future<List<Log>> getLogs() => dbObject.getLogs();
+  static Future<List<Log>> getLogs() => dbObject.getLogs();
 }
