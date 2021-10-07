@@ -5,3 +5,6 @@ const EMAIL_FIELD = "email";
 const MESSAGE_TYPE_IMAGE = "image";
 const CALL_COLLECTION = "call";
 const CONTACTS_COLLECTION = "contacts";
+const CALL_STATUS_DIALLED = "dialled";
+const CALL_STATUS_RECEIVED = "received";
+const CALL_STATUS_MISSED = "missed";
