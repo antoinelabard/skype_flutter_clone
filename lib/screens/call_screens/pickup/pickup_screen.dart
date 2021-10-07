@@ -5,11 +5,17 @@ import 'package:skype_flutter_clone/screens/call_screens/call_screen.dart';
 import 'package:skype_flutter_clone/screens/chat_screens/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/utils/permissions.dart';
 
-class PickupScreen extends StatelessWidget {
+class PickupScreen extends StatefulWidget {
   final Call call;
-  var callMethods = CallMethods();
 
   PickupScreen({Key? key, required this.call}) : super(key: key);
+
+  @override
+  State<PickupScreen> createState() => _PickupScreenState();
+}
+
+class _PickupScreenState extends State<PickupScreen> {
+  var callMethods = CallMethods();
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +33,9 @@ class PickupScreen extends StatelessWidget {
             SizedBox(
               height: 50,
             ),
-            CachedImage(call.callerPic, isRound: true, radius: 180),
+            CachedImage(widget.call.callerPic, isRound: true, radius: 180),
             Text(
-              call.callerName,
+              widget.call.callerName,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
             SizedBox(
@@ -40,7 +46,7 @@ class PickupScreen extends StatelessWidget {
               children: [
                 IconButton(
                     onPressed: () async =>
-                        await callMethods.endCall(call: call),
+                        await callMethods.endCall(call: widget.call),
                     icon: Icon(Icons.call_end),
                     color: Colors.redAccent),
                 SizedBox(width: 25),
@@ -50,7 +56,7 @@ class PickupScreen extends StatelessWidget {
                         ? Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CallScreen(call: call)))
+                                builder: (context) => CallScreen(call: widget.call)))
                         : {},
                     icon: Icon(Icons.call))
               ],
