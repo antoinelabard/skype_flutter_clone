@@ -8,8 +8,8 @@ import 'package:skype_flutter_clone/screens/call_screens/pickup/pickup_layout.da
 import 'package:skype_flutter_clone/screens/page_views/widgets/contact_view.dart';
 import 'package:skype_flutter_clone/screens/page_views/widgets/quiet_box.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
-import 'package:skype_flutter_clone/widgets/custom_appbar.dart';
 import 'package:skype_flutter_clone/widgets/new_chat_button.dart';
+import 'package:skype_flutter_clone/widgets/skype_appbar.dart';
 import 'package:skype_flutter_clone/widgets/user_circle.dart';
 
 class ChatListScreen extends StatelessWidget {
@@ -18,42 +18,30 @@ class ChatListScreen extends StatelessWidget {
     return PickupLayout(
       scaffold: Scaffold(
         backgroundColor: Constants.blackColor,
-        appBar: customAppBar(context),
+        appBar: SkypeAppbar(
+          title: UserCircle(),
+            actions: [
+              IconButton(
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, "/search_screen");
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.more_vert,
+                  color: Colors.white,
+                ),
+                onPressed: () {},
+              ),
+            ],
+        ),
         floatingActionButton: NewChatButton(),
         body: ChatListContainer(),
       ),
-    );
-  }
-
-  CustomAppbar customAppBar(BuildContext context) {
-    return CustomAppbar(
-      leading: IconButton(
-        icon: Icon(
-          Icons.notifications,
-          color: Colors.white,
-        ),
-        onPressed: () {},
-      ),
-      title: UserCircle(),
-      centerTitle: true,
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(
-            Icons.search,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pushNamed(context, "/search_screen");
-          },
-        ),
-        IconButton(
-          icon: Icon(
-            Icons.more_vert,
-            color: Colors.white,
-          ),
-          onPressed: () {},
-        ),
-      ],
     );
   }
 }
