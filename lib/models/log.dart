@@ -18,15 +18,15 @@ class Log {
   });
 
   // to map
-  Map<String, dynamic> toMap(Log log) {
+  Map<String, dynamic> toMap() {
     Map<String, dynamic> logMap = Map();
-    logMap["log_id"] = log.logId;
-    logMap["caller_name"] = log.callerName;
-    logMap["caller_pic"] = log.callerPic;
-    logMap["receiver_name"] = log.receiverName;
-    logMap["receiver_pic"] = log.receiverPic;
-    logMap["call_status"] = log.callStatus;
-    logMap["timestamp"] = log.timestamp;
+    logMap["log_id"] = logId;
+    logMap["caller_name"] = callerName;
+    logMap["caller_pic"] = callerPic;
+    logMap["receiver_name"] = receiverName;
+    logMap["receiver_pic"] = receiverPic;
+    logMap["call_status"] = callStatus;
+    logMap["timestamp"] = timestamp;
     return logMap;
   }
 
