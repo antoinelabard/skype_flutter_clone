@@ -5,7 +5,7 @@ import 'package:skype_flutter_clone/screens/call_screens/pickup/pickup_layout.da
 import 'package:skype_flutter_clone/utils/Constants.dart';
 import 'package:skype_flutter_clone/widgets/skype_appbar.dart';
 
-import 'floating_column.dart';
+import 'widgets/floating_column.dart';
 
 class LogScreen extends StatelessWidget {
   const LogScreen({Key? key}) : super(key: key);
