@@ -21,12 +21,6 @@ class CallUtils {
         receiverPic: to.profilePhoto!,
         channelId: Random().nextInt(100).toString());
 
-    call.hasDialed = await callMethods.makeCall(call: call);
-
-    if (call.hasDialed) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => CallScreen(call: call)));
-    }
   var log = Log(
     callerName: from.name!,
     callerPic: from.profilePhoto!,
