@@ -8,7 +8,7 @@ import 'package:skype_flutter_clone/resources/auth_methods.dart';
 import 'package:skype_flutter_clone/screens/call_screens/pickup/pickup_layout.dart';
 import 'package:skype_flutter_clone/screens/page_views/chat_list_screen.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
-import 'package:skype_flutter_clone/widgets/logs/widgets/log_screen.dart';
+import 'package:skype_flutter_clone/widgets/logs/log_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
