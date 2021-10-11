@@ -4,7 +4,10 @@ import 'package:skype_flutter_clone/screens/page_views/search_screen.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
 
 class QuietBox extends StatelessWidget {
-  const QuietBox({Key? key}) : super(key: key);
+  const QuietBox({Key? key, required this.heading, required this.subtitle}) : super(key: key);
+
+  final String heading;
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +21,12 @@ class QuietBox extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("This is where all the contacts are listed",
+              Text(heading,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
               SizedBox(height: 25),
               Text(
-                  "Search for your friends and family to start calling or chatting with them",
+                  subtitle,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       letterSpacing: 1.2,
