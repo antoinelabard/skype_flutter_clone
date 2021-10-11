@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:skype_flutter_clone/enum/user_state.dart';
 import 'package:skype_flutter_clone/provider/user_provider.dart';
 import 'package:skype_flutter_clone/resources/auth_methods.dart';
+import 'package:skype_flutter_clone/resources/local_db/repository/log_repository.dart';
 import 'package:skype_flutter_clone/screens/call_screens/pickup/pickup_layout.dart';
 import 'package:skype_flutter_clone/screens/page_views/chat_list_screen.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
@@ -37,6 +38,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
     pageController = PageController(initialPage: 0);
     WidgetsBinding.instance!.addObserver(this);
+
+    LogRepository.init(isHive: false, dbName: userProvider.getUser().uid);
   }
 
   @override
