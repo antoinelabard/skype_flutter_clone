@@ -2,6 +2,9 @@ import 'package:skype_flutter_clone/models/log.dart';
 import 'package:skype_flutter_clone/resources/local_db/interface/log_interface.dart';
 
 class HiveMethods implements LogInterface {
+
+  String hiveBox = "";
+
   @override
   addLogs(Log log) {
     print("Data added to Hive database.");
@@ -33,4 +36,7 @@ class HiveMethods implements LogInterface {
     // TODO: implement init
     throw UnimplementedError();
   }
+
+  @override
+  openDb(dbName)  => hiveBox = dbName;
 }

@@ -19,7 +19,7 @@ class SqliteMethods implements LogInterface {
     return _db!;
   }
 
-  var databaseName = "LogDB";
+  var databaseName = "";
   var tableName = "Call_logs";
 
   var id = "log_id";
@@ -104,4 +104,7 @@ class SqliteMethods implements LogInterface {
     await db.execute(createTableQuery);
     print("table created");
   }
+
+  @override
+  openDb(dbName) => databaseName = dbName;
 }

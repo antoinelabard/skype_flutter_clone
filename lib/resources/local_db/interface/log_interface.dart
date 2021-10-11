@@ -10,4 +10,6 @@ abstract class LogInterface {
   deleteLogs(int logId);
 
   close();
+
+  openDb(dbName);
 }
