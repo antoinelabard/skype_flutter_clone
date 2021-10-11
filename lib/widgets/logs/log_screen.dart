@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:skype_flutter_clone/models/log.dart';
-import 'package:skype_flutter_clone/resources/local_db/repository/log_repository.dart';
 import 'package:skype_flutter_clone/screens/call_screens/pickup/pickup_layout.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
+import 'package:skype_flutter_clone/widgets/logs/widgets/log_list_container.dart';
 import 'package:skype_flutter_clone/widgets/skype_appbar.dart';
 
 import 'widgets/floating_column.dart';
@@ -29,14 +28,9 @@ class LogScreen extends StatelessWidget {
           ],
         ),
         backgroundColor: Constants.blackColor,
-        body: Center(
-          child: TextButton(
-            child: Text("Click me"),
-            onPressed: () {
-              LogRepository.init(isHive: true);
-              LogRepository.addLogs(Log());
-            },
-          ),
+        body: Padding(
+          padding: EdgeInsets.only(left: 15),
+          child: LogListContainer(),
         ),
         floatingActionButton: FloatingColumn(),
       ),
