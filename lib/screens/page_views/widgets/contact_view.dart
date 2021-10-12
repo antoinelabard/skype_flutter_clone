@@ -45,6 +45,13 @@ class ViewLayout extends StatelessWidget {
     final userProvider = Provider.of<UserProvider>(context);
     return CustomTile(
       mini: false,
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    ChatScreen(receiver: contact)));
+      },
       leading: Container(
         constraints: BoxConstraints(maxHeight: 60, maxWidth: 60),
         child: Stack(
@@ -62,7 +69,6 @@ class ViewLayout extends StatelessWidget {
       subtitle: LastMessageContainer(
           stream: _chatMethods.fetchLastMessageBetween(
               senderId: userProvider.getUser().uid, receiverId: contact.uid!)),
-      onTap: () => ChatScreen(receiver: contact),
     );
   }
 }
