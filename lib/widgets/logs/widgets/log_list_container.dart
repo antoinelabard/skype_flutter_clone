@@ -51,14 +51,18 @@ class _LogListContainerState extends State<LogListContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(builder: (context, AsyncSnapshot snapshot) {
+    return FutureBuilder(
+      future: LogRepository.getLogs(),
+        builder: (context, AsyncSnapshot snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         return Center(child: CircularProgressIndicator());
       }
       if (snapshot.hasData) {
         List<dynamic> logList = snapshot.data;
         if (logList.isNotEmpty) {
-          return ListView.builder(itemBuilder: (context, index) {
+          return ListView.builder(
+            itemCount: logList.length,
+              itemBuilder: (context, index) {
             Log _log = logList[index];
             var hasDialled = _log.callStatus == CALL_STATUS_DIALLED;
             return CustomTile(
