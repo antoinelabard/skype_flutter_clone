@@ -56,7 +56,7 @@ class Utils {
 
   static String formatDateString(String dateString) {
     var dateTime =DateTime.parse(dateString);
-    var formatter = DateFormat('dd/MM/yy');
+    var formatter = DateFormat('dd/MM/yy, H:m:s');
     return formatter.format(dateTime);
   }
 }
