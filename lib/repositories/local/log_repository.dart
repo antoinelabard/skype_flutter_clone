@@ -1,7 +1,7 @@
 import 'package:skype_flutter_clone/models/log.dart';
-import 'package:skype_flutter_clone/resources/local_db/db/hive_methods.dart';
-import 'package:skype_flutter_clone/resources/local_db/db/sqlite_methods.dart';
-import 'package:skype_flutter_clone/resources/local_db/interface/log_interface.dart';
+import 'package:skype_flutter_clone/repositories/local/hive_methods.dart';
+import 'package:skype_flutter_clone/repositories/local/log_interface.dart';
+import 'package:skype_flutter_clone/repositories/local/sqlite_methods.dart';
 
 class LogRepository {
   static late LogInterface dbObject;

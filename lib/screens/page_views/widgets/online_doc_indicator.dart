@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:skype_flutter_clone/enum/user_state.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
-import 'package:skype_flutter_clone/resources/auth_methods.dart';
+import 'package:skype_flutter_clone/repositories/firebase/auth_methods.dart';
 import 'package:skype_flutter_clone/utils/utils.dart';
 
 class OnlineDotIndicator extends StatelessWidget {

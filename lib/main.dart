@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skype_flutter_clone/provider/image_upload_provider.dart';
 import 'package:skype_flutter_clone/provider/user_provider.dart';
-import 'package:skype_flutter_clone/resources/auth_methods.dart';
+import 'package:skype_flutter_clone/repositories/firebase/auth_methods.dart';
 import 'package:skype_flutter_clone/screens/home_screen.dart';
 import 'package:skype_flutter_clone/screens/login_screen.dart';
 import 'package:skype_flutter_clone/screens/page_views/search_screen.dart';

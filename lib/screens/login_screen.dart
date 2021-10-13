@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:skype_flutter_clone/constants/constants.dart';
-import 'package:skype_flutter_clone/resources/auth_methods.dart';
+import 'package:skype_flutter_clone/repositories/firebase/auth_methods.dart';
 import 'package:skype_flutter_clone/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {

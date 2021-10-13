@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:skype_flutter_clone/constants/constants.dart';
 import 'package:skype_flutter_clone/models/contact.dart';
 import 'package:skype_flutter_clone/provider/user_provider.dart';
-import 'package:skype_flutter_clone/resources/chat_methods.dart';
+import 'package:skype_flutter_clone/repositories/firebase/chat_methods.dart';
 import 'package:skype_flutter_clone/screens/call_screens/pickup/pickup_layout.dart';
 import 'package:skype_flutter_clone/screens/page_views/widgets/contact_view.dart';
 import 'package:skype_flutter_clone/screens/page_views/widgets/quiet_box.dart';

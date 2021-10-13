@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:skype_flutter_clone/models/log.dart';
-import 'package:skype_flutter_clone/resources/local_db/interface/log_interface.dart';
+import 'package:skype_flutter_clone/repositories/local/log_interface.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SqliteMethods implements LogInterface {

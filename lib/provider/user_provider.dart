@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
-import 'package:skype_flutter_clone/resources/auth_methods.dart';
+import 'package:skype_flutter_clone/repositories/firebase/auth_methods.dart';
 
 /// Provides an instance of the active user. This is meant to provide the user
 /// data as a singleton, and always fetch the same unique instance of the logged

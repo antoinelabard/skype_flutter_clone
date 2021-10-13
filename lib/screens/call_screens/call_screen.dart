@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:skype_flutter_clone/configs/agora_configs.dart';
 import 'package:skype_flutter_clone/models/call.dart';
 import 'package:skype_flutter_clone/provider/user_provider.dart';
-import 'package:skype_flutter_clone/resources/call_methods.dart';
+import 'package:skype_flutter_clone/repositories/firebase/call_methods.dart';
 
 class CallScreen extends StatefulWidget {
   final Call call;

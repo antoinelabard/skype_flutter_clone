@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skype_flutter_clone/constants/constants.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
-import 'package:skype_flutter_clone/resources/auth_methods.dart';
+import 'package:skype_flutter_clone/repositories/firebase/auth_methods.dart';
 import 'package:skype_flutter_clone/screens/chat_screens/chat_screen.dart';
 import 'package:skype_flutter_clone/widgets/custom_tile.dart';
 

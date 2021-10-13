@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skype_flutter_clone/constants/strings.dart';
 import 'package:skype_flutter_clone/models/log.dart';
-import 'package:skype_flutter_clone/resources/local_db/repository/log_repository.dart';
+import 'package:skype_flutter_clone/repositories/local/log_repository.dart';
 import 'package:skype_flutter_clone/screens/chat_screens/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/screens/page_views/widgets/quiet_box.dart';
 import 'package:skype_flutter_clone/utils/utils.dart';
