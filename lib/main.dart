@@ -7,7 +7,7 @@ import 'package:skype_flutter_clone/provider/user_provider.dart';
 import 'package:skype_flutter_clone/repositories/firebase/auth_methods.dart';
 import 'package:skype_flutter_clone/screens/home_screen.dart';
 import 'package:skype_flutter_clone/screens/login_screen.dart';
-import 'package:skype_flutter_clone/screens/page_views/search_screen.dart';
+import 'package:skype_flutter_clone/screens/search_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,8 +27,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // _fireBaseRepository
-    // .signOut(); // For test only. Remove to keep the user logged in
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ImageUploadProvider()),

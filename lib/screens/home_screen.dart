@@ -7,9 +7,9 @@ import 'package:skype_flutter_clone/enum/user_state.dart';
 import 'package:skype_flutter_clone/provider/user_provider.dart';
 import 'package:skype_flutter_clone/repositories/firebase/auth_methods.dart';
 import 'package:skype_flutter_clone/repositories/local/log_repository.dart';
-import 'package:skype_flutter_clone/screens/call_screens/pickup/pickup_layout.dart';
+import 'package:skype_flutter_clone/screens/call_screens/pickup_layout.dart';
 import 'package:skype_flutter_clone/screens/page_views/chat_list_screen.dart';
-import 'package:skype_flutter_clone/widgets/logs/log_screen.dart';
+import 'package:skype_flutter_clone/screens/page_views/log_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

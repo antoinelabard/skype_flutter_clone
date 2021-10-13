@@ -6,7 +6,7 @@ import 'package:skype_flutter_clone/provider/user_provider.dart';
 import 'package:skype_flutter_clone/repositories/firebase/auth_methods.dart';
 import 'package:skype_flutter_clone/repositories/firebase/chat_methods.dart';
 import 'package:skype_flutter_clone/screens/chat_screens/chat_screen.dart';
-import 'package:skype_flutter_clone/screens/chat_screens/widgets/cached_image.dart';
+import 'package:skype_flutter_clone/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/widgets/custom_tile.dart';
 
 import 'last_message_container.dart';

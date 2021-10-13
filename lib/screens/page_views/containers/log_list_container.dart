@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:skype_flutter_clone/constants/strings.dart';
 import 'package:skype_flutter_clone/models/log.dart';
 import 'package:skype_flutter_clone/repositories/local/log_repository.dart';
-import 'package:skype_flutter_clone/screens/chat_screens/widgets/cached_image.dart';
-import 'package:skype_flutter_clone/screens/page_views/widgets/quiet_box.dart';
 import 'package:skype_flutter_clone/utils/utils.dart';
+import 'package:skype_flutter_clone/widgets/cached_image.dart';
+import 'package:skype_flutter_clone/widgets/quiet_box.dart';
 
-import '../../custom_tile.dart';
+import '../../../widgets/custom_tile.dart';
 
 class LogListContainer extends StatefulWidget {
   const LogListContainer({Key? key}) : super(key: key);

@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:skype_flutter_clone/models/call.dart';
 import 'package:skype_flutter_clone/provider/user_provider.dart';
 import 'package:skype_flutter_clone/repositories/firebase/call_methods.dart';
-import 'package:skype_flutter_clone/screens/call_screens/pickup/pickup_screen.dart';
+import 'package:skype_flutter_clone/screens/call_screens/pickup_screen.dart';
 
 class PickupLayout extends StatelessWidget {
   final Widget scaffold;

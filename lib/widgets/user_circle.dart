@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:skype_flutter_clone/constants/constants.dart';
 import 'package:skype_flutter_clone/provider/user_provider.dart';
-import 'package:skype_flutter_clone/screens/chat_screens/widgets/cached_image.dart';
-import 'package:skype_flutter_clone/screens/page_views/widgets/user_details_container.dart';
+import 'package:skype_flutter_clone/widgets/cached_image.dart';
+import 'package:skype_flutter_clone/widgets/user_details_container.dart';
 
 class UserCircle extends StatelessWidget {
   const UserCircle({Key? key}) : super(key: key);

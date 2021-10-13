@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
 import 'package:skype_flutter_clone/provider/user_provider.dart';
 import 'package:skype_flutter_clone/repositories/firebase/auth_methods.dart';
-import 'package:skype_flutter_clone/screens/chat_screens/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/screens/login_screen.dart';
-import 'package:skype_flutter_clone/screens/page_views/widgets/shimmering_logo.dart';
+import 'package:skype_flutter_clone/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/widgets/custom_appbar.dart';
+import 'package:skype_flutter_clone/widgets/shimmering_logo.dart';
 
 class UserDetailsContainer extends StatelessWidget {
   const UserDetailsContainer({Key? key, required this.isScrollControlled})

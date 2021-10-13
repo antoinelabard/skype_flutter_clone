@@ -12,10 +12,10 @@ import 'package:skype_flutter_clone/provider/image_upload_provider.dart';
 import 'package:skype_flutter_clone/repositories/firebase/auth_methods.dart';
 import 'package:skype_flutter_clone/repositories/firebase/chat_methods.dart';
 import 'package:skype_flutter_clone/repositories/firebase/storage_methods.dart';
-import 'package:skype_flutter_clone/screens/chat_screens/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/utils/call_utils.dart';
 import 'package:skype_flutter_clone/utils/permissions.dart';
 import 'package:skype_flutter_clone/utils/utils.dart';
+import 'package:skype_flutter_clone/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/widgets/custom_appbar.dart';
 import 'package:skype_flutter_clone/widgets/modal_tile.dart';
 
