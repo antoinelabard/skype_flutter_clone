@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skype_flutter_clone/utils/Constants.dart';
+import 'package:skype_flutter_clone/constants/constants.dart';
 
 class FloatingColumn extends StatelessWidget {
   const FloatingColumn({Key? key}) : super(key: key);

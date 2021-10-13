@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:skype_flutter_clone/constants/constants.dart';
 import 'package:skype_flutter_clone/models/contact.dart';
 import 'package:skype_flutter_clone/provider/user_provider.dart';
 import 'package:skype_flutter_clone/resources/chat_methods.dart';
 import 'package:skype_flutter_clone/screens/call_screens/pickup/pickup_layout.dart';
 import 'package:skype_flutter_clone/screens/page_views/widgets/contact_view.dart';
 import 'package:skype_flutter_clone/screens/page_views/widgets/quiet_box.dart';
-import 'package:skype_flutter_clone/utils/Constants.dart';
 import 'package:skype_flutter_clone/widgets/new_chat_button.dart';
 import 'package:skype_flutter_clone/widgets/skype_appbar.dart';
 import 'package:skype_flutter_clone/widgets/user_circle.dart';

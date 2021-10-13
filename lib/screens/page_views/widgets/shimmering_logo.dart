@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:skype_flutter_clone/utils/Constants.dart';
+import 'package:skype_flutter_clone/constants/constants.dart';
 
 class ShimmeringLogo extends StatelessWidget {
   const ShimmeringLogo({Key? key}) : super(key: key);

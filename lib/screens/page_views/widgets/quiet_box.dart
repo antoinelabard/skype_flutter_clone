@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:skype_flutter_clone/constants/constants.dart';
 import 'package:skype_flutter_clone/screens/page_views/search_screen.dart';
-import 'package:skype_flutter_clone/utils/Constants.dart';
 
 class QuietBox extends StatelessWidget {
   const QuietBox({Key? key, required this.heading, required this.subtitle})

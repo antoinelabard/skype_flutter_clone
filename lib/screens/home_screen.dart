@@ -2,13 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
+import 'package:skype_flutter_clone/constants/constants.dart';
 import 'package:skype_flutter_clone/enum/user_state.dart';
 import 'package:skype_flutter_clone/provider/user_provider.dart';
 import 'package:skype_flutter_clone/resources/auth_methods.dart';
 import 'package:skype_flutter_clone/resources/local_db/repository/log_repository.dart';
 import 'package:skype_flutter_clone/screens/call_screens/pickup/pickup_layout.dart';
 import 'package:skype_flutter_clone/screens/page_views/chat_list_screen.dart';
-import 'package:skype_flutter_clone/utils/Constants.dart';
 import 'package:skype_flutter_clone/widgets/logs/log_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -135,11 +135,5 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     });
   }
 
-  navigationTapped(int page) {
-    // WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-    //   if (pageController.hasClients) {
-    pageController.jumpToPage(page);
-    //   }
-    // });
-  }
+  navigationTapped(int page) => pageController.jumpToPage(page);
 }
