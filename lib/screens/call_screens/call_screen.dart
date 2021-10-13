@@ -89,11 +89,11 @@ class _CallScreenState extends State<CallScreen> {
 
     await _initAgoraRtcEngine();
     _addAgoraEventHandlers();
-    await _engine.enableWebSdkInteroperability(true);
+    // await _engine.enableWebSdkInteroperability(true);
     VideoEncoderConfiguration configuration = VideoEncoderConfiguration();
     configuration.dimensions = VideoDimensions(); //320, 180);
     await _engine.setVideoEncoderConfiguration(configuration);
-    await _engine.joinChannel(null, widget.call.channelId, null, 0);
+    await _engine.joinChannel(APP_TOKEN, widget.call.channelId, null, 0);
   }
 
   /// Create agora sdk instance and initialize
@@ -101,7 +101,9 @@ class _CallScreenState extends State<CallScreen> {
     _engine = await RtcEngine.create(APP_ID);
     await _engine.enableVideo();
     await _engine.setChannelProfile(ChannelProfile.LiveBroadcasting);
-    await _engine.setClientRole(widget.role!);
+    if (widget.role != null) {
+      await _engine.setClientRole(widget.role!);
+    }
   }
 
   void _addAgoraEventHandlers() {
