@@ -1,3 +1,6 @@
+/// This class is intended to store and retrieve all the information related to a
+/// call between 2 users. It allows to manage call data without dealing with the
+/// map given by the database.
 class Call {
   late String callerId;
   late String callerName;

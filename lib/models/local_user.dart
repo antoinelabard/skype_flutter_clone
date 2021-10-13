@@ -1,3 +1,7 @@
+/// LocalUser is the class intended to managed locally all the data fetched from
+/// the remote Firebase database. It has all the attributes of the users entries
+/// and allows to manage a Firebase user without dealing with a map given by the
+/// database.
 class LocalUser {
   String? uid;
   String? name;

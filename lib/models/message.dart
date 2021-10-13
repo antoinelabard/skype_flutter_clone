@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// Stores and retrieve all the data related to a message sent between 2 users.
+/// It allows to manage message data without dealing with the map given by the
+/// database.
 class Message {
   late String senderId;
   late String receiverId;

@@ -1,5 +1,8 @@
 import 'package:uuid/uuid.dart';
 
+/// Stores and retrieve all the information related to a previous call between 2
+/// users. It allows to manage call log data without dealing with the map given
+/// by the database.
 class Log {
   late String logId;
   late String callerName;

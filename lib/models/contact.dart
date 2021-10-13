@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// Stores all the information related to a contact of the user. It allows to
+/// manage contact data without dealing with the map given by the database.
 class Contact {
   late String uid;
   late Timestamp addedOn;
