@@ -20,24 +20,24 @@ class ChatListScreen extends StatelessWidget {
         backgroundColor: Constants.blackColor,
         appBar: SkypeAppbar(
           title: UserCircle(),
-            actions: [
-              IconButton(
-                icon: Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(context, "/search_screen");
-                },
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.search,
+                color: Colors.white,
               ),
-              IconButton(
-                icon: Icon(
-                  Icons.more_vert,
-                  color: Colors.white,
-                ),
-                onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, "/search_screen");
+              },
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.more_vert,
+                color: Colors.white,
               ),
-            ],
+              onPressed: () {},
+            ),
+          ],
         ),
         floatingActionButton: NewChatButton(),
         body: ChatListContainer(),
@@ -63,8 +63,11 @@ class ChatListContainer extends StatelessWidget {
               var docList = snapshot.data!.docs;
 
               if (docList.isEmpty) {
-                return QuietBox(heading: "This is where all the contacts are listed",
-                subtitle: "Search for your friends and family to start calling or chatting with them",);
+                return QuietBox(
+                  heading: "This is where all the contacts are listed",
+                  subtitle:
+                      "Search for your friends and family to start calling or chatting with them",
+                );
               }
               return ListView.builder(
                 padding: EdgeInsets.all(10),

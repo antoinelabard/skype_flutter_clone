@@ -2,7 +2,6 @@ import 'package:skype_flutter_clone/models/log.dart';
 import 'package:skype_flutter_clone/resources/local_db/interface/log_interface.dart';
 
 class HiveMethods implements LogInterface {
-
   String hiveBox = "";
 
   @override
@@ -38,5 +37,5 @@ class HiveMethods implements LogInterface {
   }
 
   @override
-  openDb(dbName)  => hiveBox = dbName;
+  openDb(dbName) => hiveBox = dbName;
 }

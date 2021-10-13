@@ -4,7 +4,8 @@ import 'package:skype_flutter_clone/screens/page_views/search_screen.dart';
 import 'package:skype_flutter_clone/utils/Constants.dart';
 
 class QuietBox extends StatelessWidget {
-  const QuietBox({Key? key, required this.heading, required this.subtitle}) : super(key: key);
+  const QuietBox({Key? key, required this.heading, required this.subtitle})
+      : super(key: key);
 
   final String heading;
   final String subtitle;
@@ -25,8 +26,7 @@ class QuietBox extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
               SizedBox(height: 25),
-              Text(
-                  subtitle,
+              Text(subtitle,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       letterSpacing: 1.2,

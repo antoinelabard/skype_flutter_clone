@@ -46,12 +46,14 @@ class SqliteMethods implements LogInterface {
   @override
   deleteLogs(int logId) async {
     var dbClient = await db;
-    return await dbClient.delete(tableName, where: "$id = ?", whereArgs: [logId]);
+    return await dbClient
+        .delete(tableName, where: "$id = ?", whereArgs: [logId]);
   }
 
   updateLogs(Log log) async {
     var dbClient = await db;
-    await dbClient.update(tableName, log.toMap(),whereArgs: [log.logId], where: "$id = ?");
+    await dbClient.update(tableName, log.toMap(),
+        whereArgs: [log.logId], where: "$id = ?");
   }
 
   @override

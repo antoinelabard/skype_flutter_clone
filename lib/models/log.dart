@@ -10,12 +10,12 @@ class Log {
   late String timestamp;
 
   Log({
-     this.callerName = "",
-     this.callerPic = "",
-     this.receiverName = "",
-     this.receiverPic = "",
-     this.callStatus = "",
-     this.timestamp = "",
+    this.callerName = "",
+    this.callerPic = "",
+    this.receiverName = "",
+    this.receiverPic = "",
+    this.callStatus = "",
+    this.timestamp = "",
   }) {
     logId = Uuid().v4().toString();
   }

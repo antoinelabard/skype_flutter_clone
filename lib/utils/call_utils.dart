@@ -21,21 +21,21 @@ class CallUtils {
         receiverPic: to.profilePhoto!,
         channelId: Random().nextInt(100).toString());
 
-  var log = Log(
-    callerName: from.name!,
-    callerPic: from.profilePhoto!,
-    callStatus: CALL_STATUS_DIALLED,
-    receiverName: to.name!,
-    receiverPic: to.profilePhoto!,
-    timestamp: DateTime.now().toString()
-  );
+    var log = Log(
+        callerName: from.name!,
+        callerPic: from.profilePhoto!,
+        callStatus: CALL_STATUS_DIALLED,
+        receiverName: to.name!,
+        receiverPic: to.profilePhoto!,
+        timestamp: DateTime.now().toString());
     var callMade = await callMethods.makeCall(call: call);
 
     call.hasDialed = true;
 
     if (callMade) {
       LogRepository.addLogs(log);
-      Navigator.push(context, MaterialPageRoute(builder: (context) => CallScreen(call: call)));
-          }
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => CallScreen(call: call)));
+    }
   }
 }

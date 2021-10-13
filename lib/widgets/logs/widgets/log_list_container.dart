@@ -52,58 +52,66 @@ class _LogListContainerState extends State<LogListContainer> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: LogRepository.getLogs(),
+        future: LogRepository.getLogs(),
         builder: (context, AsyncSnapshot snapshot) {
-      if (snapshot.connectionState == ConnectionState.waiting) {
-        return Center(child: CircularProgressIndicator());
-      }
-      if (snapshot.hasData) {
-        List<dynamic> logList = snapshot.data;
-        if (logList.isNotEmpty) {
-          return ListView.builder(
-            itemCount: logList.length,
-              itemBuilder: (context, index) {
-            Log _log = logList[index];
-            var hasDialled = _log.callStatus == CALL_STATUS_DIALLED;
-            return CustomTile(
-              leading: CachedImage(
-                  hasDialled ? _log.receiverPic : _log.callerPic,
-                  isRound: true,
-                  radius: 45),
-              mini: false,
-              title: Text(
-                hasDialled ? _log.receiverName : _log.callerName,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-              icon: getIcon(_log.callStatus),
-              subtitle: Text(
-                Utils.formatDateString(_log.timestamp),
-                style: TextStyle(fontSize: 13),
-              ),
-              onLongPress: () => showDialog(context: context, builder: (context) => AlertDialog(
-                title: Text("Delete this log?"),
-                content: Text("Are you sure you want to delete this log?"),
-                actions: [
-                  TextButton(onPressed: () async {
-                    Navigator.maybePop(context);
-                    await LogRepository.deleteLogs(index);
-                    if (mounted) {
-                      setState(() {});
-                    }
-                  }, child: Text("Yes")),
-                  TextButton(onPressed: () {
-                    Navigator.maybePop(context);
-                  }, child: Text("No")),
-
-                ],
-              )),
-            );
-          });
-        }
-      }
-      return QuietBox(
-          heading: "This is where all your calls are listed.",
-          subtitle: "Calling people all over the world with just one click!");
-    });
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasData) {
+            List<dynamic> logList = snapshot.data;
+            if (logList.isNotEmpty) {
+              return ListView.builder(
+                  itemCount: logList.length,
+                  itemBuilder: (context, index) {
+                    Log _log = logList[index];
+                    var hasDialled = _log.callStatus == CALL_STATUS_DIALLED;
+                    return CustomTile(
+                      leading: CachedImage(
+                          hasDialled ? _log.receiverPic : _log.callerPic,
+                          isRound: true,
+                          radius: 45),
+                      mini: false,
+                      title: Text(
+                        hasDialled ? _log.receiverName : _log.callerName,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                      icon: getIcon(_log.callStatus),
+                      subtitle: Text(
+                        Utils.formatDateString(_log.timestamp),
+                        style: TextStyle(fontSize: 13),
+                      ),
+                      onLongPress: () => showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text("Delete this log?"),
+                                content: Text(
+                                    "Are you sure you want to delete this log?"),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () async {
+                                        Navigator.maybePop(context);
+                                        await LogRepository.deleteLogs(index);
+                                        if (mounted) {
+                                          setState(() {});
+                                        }
+                                      },
+                                      child: Text("Yes")),
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.maybePop(context);
+                                      },
+                                      child: Text("No")),
+                                ],
+                              )),
+                    );
+                  });
+            }
+          }
+          return QuietBox(
+              heading: "This is where all your calls are listed.",
+              subtitle:
+                  "Calling people all over the world with just one click!");
+        });
   }
 }

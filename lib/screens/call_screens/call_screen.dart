@@ -311,7 +311,6 @@ class _CallScreenState extends State<CallScreen> {
     _engine.muteLocalAudioStream(muted);
   }
 
-
   void _onSwitchCamera() {
     _engine.switchCamera();
   }

@@ -49,8 +49,7 @@ class ViewLayout extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    ChatScreen(receiver: contact)));
+                builder: (context) => ChatScreen(receiver: contact)));
       },
       leading: Container(
         constraints: BoxConstraints(maxHeight: 60, maxWidth: 60),
