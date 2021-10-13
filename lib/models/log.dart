@@ -1,5 +1,7 @@
+import 'package:uuid/uuid.dart';
+
 class Log {
-  late int logId;
+  late String logId;
   late String callerName;
   late String callerPic;
   late String receiverName;
@@ -8,14 +10,15 @@ class Log {
   late String timestamp;
 
   Log({
-     this.logId = 0,
      this.callerName = "",
      this.callerPic = "",
      this.receiverName = "",
      this.receiverPic = "",
      this.callStatus = "",
      this.timestamp = "",
-  });
+  }) {
+    logId = Uuid().v4().toString();
+  }
 
   // to map
   Map<String, dynamic> toMap() {

@@ -92,7 +92,7 @@ class SqliteMethods implements LogInterface {
   _onCreate(Database db, int version) async {
     String createTableQuery = """
         CREATE TABLE $tableName (
-        $id INTEGER PRIMARY KEY,
+        $id TEXT PRIMARY KEY,
         $callerName TEXT,
         $callerPic TEXT,
         $receiverName TEXT,
