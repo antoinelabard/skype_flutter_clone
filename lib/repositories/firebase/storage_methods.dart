@@ -6,6 +6,8 @@ import 'package:skype_flutter_clone/provider/image_upload_provider.dart';
 
 import 'chat_methods.dart';
 
+/// Provide the tools to access the Fiebase storage. Used to store the media
+/// which cannot be store in the conventional Firestore database.
 class StorageMethods {
   static final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   late Reference _storageReference;

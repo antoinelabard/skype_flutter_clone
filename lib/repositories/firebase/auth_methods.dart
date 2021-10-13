@@ -6,6 +6,8 @@ import 'package:skype_flutter_clone/enum/user_state.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
 import 'package:skype_flutter_clone/utils/utils.dart';
 
+/// Provides all the tools to authenticate, log in and log the user out of the
+/// Firebase database.
 class AuthMethods {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -16,10 +18,12 @@ class AuthMethods {
   static final CollectionReference _userCollection =
       _firestore.collection(USERS_COLLECTION);
 
+  /// Fetch the user data from the Firebase database.
   Future<User> getCurrentUser() async {
     return _auth.currentUser!;
   }
 
+  /// Return the user data as a LocalUser for local processing.
   Future<LocalUser> getUserDetails() async {
     User currentUser = await getCurrentUser();
 
@@ -29,6 +33,8 @@ class AuthMethods {
     return LocalUser.fromMap(documentSnapshot.data() as Map<String, dynamic>);
   }
 
+  /// Sign the user using his Google account. Return the user's newly created
+  /// information.
   Future<User> signIn() async {
     GoogleSignInAccount? _signInAccount = await _googleSignIn.signIn();
     GoogleSignInAuthentication _signInAuthentication =
@@ -42,6 +48,7 @@ class AuthMethods {
     return user;
   }
 
+  /// Tells whether the user already exists or not.
   Future<bool> authenticateUser(User user) async {
     QuerySnapshot result = await firestore
         .collection(USERS_COLLECTION)
@@ -54,6 +61,7 @@ class AuthMethods {
     return docs.length == 0;
   }
 
+  /// Writes down in the database the information of the given user.
   Future<void> addDataToDb(User currentUser) async {
     String username = Utils.getUsername(currentUser.email!);
 
@@ -95,11 +103,14 @@ class AuthMethods {
     }
   }
 
+  /// Define the state of the user accordingly to the ones allowed by
+  /// [UserState].
   void setUserState({required String userId, required UserState userState}) {
     int stateNum = Utils.stateTuNum(userState);
     _userCollection.doc(userId).update({"state": stateNum});
   }
 
+  /// Fetch all the information related to a user in the Firebase database.
   Stream<DocumentSnapshot> getUserStream({required String uid}) =>
       _userCollection.doc(uid).snapshots();
 

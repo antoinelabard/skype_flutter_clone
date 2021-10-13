@@ -4,6 +4,7 @@ import 'package:skype_flutter_clone/models/contact.dart';
 import 'package:skype_flutter_clone/models/local_user.dart';
 import 'package:skype_flutter_clone/models/message.dart';
 
+/// Provide all the tools send messages between 2 users.
 class ChatMethods {
   static final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -62,6 +63,7 @@ class ChatMethods {
     await addToReceiversContacts(senderId, receiverId, currentTime);
   }
 
+  /// Fetch the information of the given contact of a given user.
   getContactsDocument({required String of, required String forContact}) =>
       _userCollection.doc(of).collection(CONTACTS_COLLECTION).doc(forContact);
 

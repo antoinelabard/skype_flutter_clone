@@ -8,6 +8,7 @@ import 'package:skype_flutter_clone/models/log.dart';
 import 'package:skype_flutter_clone/repositories/local/log_interface.dart';
 import 'package:sqflite/sqflite.dart';
 
+/// Proposes and implementation a a local database using Sqlite.
 class SqliteMethods implements LogInterface {
   Database? _db;
 
