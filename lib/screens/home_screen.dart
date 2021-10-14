@@ -82,9 +82,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             children: [
               ChatListScreen(),
               LogScreen(),
-              Center(
-                  child:
-                      Text("Contacts", style: TextStyle(color: Colors.white))),
             ],
             scrollDirection: Axis.horizontal,
             controller: pageController,
@@ -114,14 +111,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         ),
                         label: "Calls log",
                       ),
-                      BottomNavigationBarItem(
-                          icon: Icon(
-                            Icons.contact_phone,
-                            color: _page == 2
-                                ? Constants.lightBlueColor
-                                : Constants.greyColor,
-                          ),
-                          label: "Contacts"),
                     ],
                     onTap: navigationTapped,
                     currentIndex: _page,
