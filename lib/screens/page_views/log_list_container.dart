@@ -6,7 +6,7 @@ import 'package:skype_flutter_clone/utils/utils.dart';
 import 'package:skype_flutter_clone/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/widgets/quiet_box.dart';
 
-import '../../../widgets/custom_tile.dart';
+import '../../widgets/custom_tile.dart';
 
 class LogListContainer extends StatefulWidget {
   const LogListContainer({Key? key}) : super(key: key);

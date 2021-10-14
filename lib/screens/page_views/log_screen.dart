@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skype_flutter_clone/constants/constants.dart';
 import 'package:skype_flutter_clone/screens/call_screens/pickup_layout.dart';
-import 'package:skype_flutter_clone/screens/page_views/containers/log_list_container.dart';
+import 'package:skype_flutter_clone/screens/page_views/log_list_container.dart';
 import 'package:skype_flutter_clone/widgets/skype_appbar.dart';
 
 import '../../../widgets/floating_column.dart';
