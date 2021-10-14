@@ -38,7 +38,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final _storageMethods = StorageMethods();
   final _chatMethods = ChatMethods();
   final _authMethods = AuthMethods();
-  late String _currentUserId;
+  String? _currentUserId;
   var _scrollController = ScrollController();
   var showEmojiPicker = false;
   var focusNode = FocusNode();
@@ -400,7 +400,7 @@ class _ChatScreenState extends State<ChatScreen> {
     _storageMethods.uploadImage(
         image: selectedImage,
         receiverId: widget.receiver.uid!,
-        senderId: _currentUserId,
+        senderId: _currentUserId ?? "",
         imageUploadProvider: _imageUploadProvider);
   }
 }
