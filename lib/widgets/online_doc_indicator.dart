@@ -32,7 +32,7 @@ class OnlineDotIndicator extends StatelessWidget {
       child: StreamBuilder<DocumentSnapshot>(
           stream: _authMethods.getUserStream(uid: uid),
           builder: (context, snapshot) {
-            late LocalUser user;
+            LocalUser? user;
             if (snapshot.hasData) {
               user = LocalUser.fromMap(
                   snapshot.data?.data() as Map<String, dynamic>);
@@ -42,7 +42,8 @@ class OnlineDotIndicator extends StatelessWidget {
               width: 10,
               margin: EdgeInsets.only(right: 5, top: 5),
               decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: getColor(user.state)),
+                  shape: BoxShape.circle,
+                  color: getColor(user == null ? null : user.state)),
             );
           }),
     );
