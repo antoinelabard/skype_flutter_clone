@@ -361,7 +361,9 @@ class _ChatScreenState extends State<ChatScreen> {
             style: TextStyle(color: Colors.white, fontSize: 16),
           )
         : message.photoUrl != ""
-            ? CachedImage(message.photoUrl)
+            ? CachedImage(message.photoUrl,
+                width: MediaQuery.of(context).size.width * 3 / 4,
+                height: MediaQuery.of(context).size.width * 3 / 4)
             : Text("Dead link");
   }
 

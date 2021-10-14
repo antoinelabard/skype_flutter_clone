@@ -16,9 +16,9 @@ class CachedImage extends StatelessWidget {
   CachedImage(
     this.imageUrl, {
     this.isRound = false,
-    this.radius = 100,
-    this.height = 100,
-    this.width = 100,
+    this.radius = 0,
+    this.height = 0,
+    this.width = 0,
     this.fit = BoxFit.cover,
   });
 

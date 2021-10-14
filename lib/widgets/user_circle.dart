@@ -32,6 +32,7 @@ class UserCircle extends StatelessWidget {
               child: CachedImage(
                 userProvider.getUser().profilePhoto,
                 isRound: true,
+                radius: 80,
               ),
             ),
             Align(
