@@ -8,6 +8,8 @@ import 'package:skype_flutter_clone/screens/call_screens/call_screen.dart';
 import 'package:skype_flutter_clone/utils/permissions.dart';
 import 'package:skype_flutter_clone/widgets/cached_image.dart';
 
+/// PickupScreen: Provides a user interface for the user to manage a call
+/// session.
 class PickupScreen extends StatefulWidget {
   final Call call;
 

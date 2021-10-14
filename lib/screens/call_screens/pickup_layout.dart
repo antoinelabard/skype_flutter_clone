@@ -6,6 +6,7 @@ import 'package:skype_flutter_clone/provider/user_provider.dart';
 import 'package:skype_flutter_clone/repositories/firebase/call_methods.dart';
 import 'package:skype_flutter_clone/screens/call_screens/pickup_screen.dart';
 
+///PickupLayout: Handles the incomming calls.
 class PickupLayout extends StatelessWidget {
   final Widget scaffold;
   final callMethods = CallMethods();

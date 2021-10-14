@@ -19,6 +19,8 @@ import 'package:skype_flutter_clone/widgets/cached_image.dart';
 import 'package:skype_flutter_clone/widgets/custom_appbar.dart';
 import 'package:skype_flutter_clone/widgets/modal_tile.dart';
 
+/// ChatScreen: Provide a user intergce to with all the functionalities to
+/// exchange text and media messages.
 class ChatScreen extends StatefulWidget {
   final LocalUser receiver;
 
@@ -43,18 +45,6 @@ class _ChatScreenState extends State<ChatScreen> {
   late ImageUploadProvider _imageUploadProvider;
 
   @override
-  void initState() {
-    super.initState();
-    _authMethods.getCurrentUser().then((user) {
-      _currentUserId = user.uid;
-      setState(() {
-        sender = LocalUser(
-            uid: user.uid, name: user.displayName, profilePhoto: user.photoURL);
-      });
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     _imageUploadProvider = Provider.of(context);
 
@@ -75,6 +65,18 @@ class _ChatScreenState extends State<ChatScreen> {
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _authMethods.getCurrentUser().then((user) {
+      _currentUserId = user.uid;
+      setState(() {
+        sender = LocalUser(
+            uid: user.uid, name: user.displayName, profilePhoto: user.photoURL);
+      });
+    });
   }
 
   customAppbar(BuildContext context) => CustomAppbar(
@@ -221,7 +223,7 @@ class _ChatScreenState extends State<ChatScreen> {
       child: Container(
         child: _message.senderId == _currentUserId
             ? senderLayout(_message)
-            : receiverlayout(_message),
+            : receiverLayout(_message),
         alignment: _message.senderId == _currentUserId // 5:09
             ? Alignment.centerRight
             : Alignment.centerLeft,
@@ -247,7 +249,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  receiverlayout(Message message) {
+  receiverLayout(Message message) {
     var messageRadius = Radius.circular(10);
     return Container(
       margin: EdgeInsets.only(top: 12),

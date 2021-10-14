@@ -12,6 +12,9 @@ import 'package:skype_flutter_clone/models/call.dart';
 import 'package:skype_flutter_clone/provider/user_provider.dart';
 import 'package:skype_flutter_clone/repositories/firebase/call_methods.dart';
 
+/// CallScreen handles the video call management. It uses Agora to make video
+/// calls and is in charge of handling all the steps of the lifecycle of a call
+/// using this dependency.
 class CallScreen extends StatefulWidget {
   final Call call;
 
@@ -25,13 +28,28 @@ class CallScreen extends StatefulWidget {
 
 class _CallScreenState extends State<CallScreen> {
   var callMethods = CallMethods();
-
   late UserProvider userProvider;
   late StreamSubscription callStreamSubscription;
   late RtcEngine _engine;
   final _infoStrings = <String>[];
   static final _users = <int>[];
   bool muted = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Stack(
+          children: <Widget>[
+            _viewRows(),
+            _panel(),
+            _toolbar(),
+          ],
+        ),
+      ),
+    );
+  }
 
   addPostFrameCallback() {
     SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
@@ -58,22 +76,6 @@ class _CallScreenState extends State<CallScreen> {
     _users.clear();
     _engine.leaveChannel();
     _engine.destroy();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Center(
-        child: Stack(
-          children: <Widget>[
-            _viewRows(),
-            _panel(),
-            _toolbar(),
-          ],
-        ),
-      ),
-    );
   }
 
   Future<void> initializeAgora() async {
