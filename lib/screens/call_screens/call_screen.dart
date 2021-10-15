@@ -18,9 +18,9 @@ import 'package:skype_flutter_clone/repositories/firebase/call_methods.dart';
 class CallScreen extends StatefulWidget {
   final Call call;
 
-  final ClientRole? role;
+  final ClientRole role = ClientRole.Broadcaster;
 
-  const CallScreen({Key? key, required this.call, this.role}) : super(key: key);
+  const CallScreen({Key? key, required this.call}) : super(key: key);
 
   @override
   _CallScreenState createState() => _CallScreenState();
@@ -32,7 +32,7 @@ class _CallScreenState extends State<CallScreen> {
   late StreamSubscription callStreamSubscription;
   late RtcEngine _engine;
   final _infoStrings = <String>[];
-  static final _users = <int>[];
+  final _users = <int>[];
   bool muted = false;
 
   @override
@@ -71,11 +71,11 @@ class _CallScreenState extends State<CallScreen> {
 
   @override
   void dispose() {
-    super.dispose();
-    callStreamSubscription.cancel();
+    callStreamSubscription.cancel(); // ??
     _users.clear();
     _engine.leaveChannel();
     _engine.destroy();
+    super.dispose();
   }
 
   Future<void> initializeAgora() async {
@@ -95,6 +95,8 @@ class _CallScreenState extends State<CallScreen> {
     VideoEncoderConfiguration configuration = VideoEncoderConfiguration();
     configuration.dimensions = VideoDimensions(); //320, 180);
     await _engine.setVideoEncoderConfiguration(configuration);
+    widget.call.channelId =
+        CHANNEL_ID; // for testing only. remove for deployment.
     await _engine.joinChannel(APP_TOKEN, widget.call.channelId, null, 0);
   }
 
@@ -103,9 +105,7 @@ class _CallScreenState extends State<CallScreen> {
     _engine = await RtcEngine.create(APP_ID);
     await _engine.enableVideo();
     await _engine.setChannelProfile(ChannelProfile.LiveBroadcasting);
-    if (widget.role != null) {
-      await _engine.setClientRole(widget.role!);
-    }
+    await _engine.setClientRole(widget.role);
   }
 
   void _addAgoraEventHandlers() {
