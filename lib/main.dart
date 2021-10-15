@@ -33,6 +33,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (context) => UserProvider())
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: "/",
         theme: ThemeData(brightness: Brightness.dark),
         routes: {
