@@ -63,7 +63,7 @@ class AuthMethods {
 
   /// Writes down in the database the information of the given user.
   Future<void> addDataToDb(User currentUser) async {
-    String username = Utils.getUsername(currentUser.email!);
+    String username = Utils.getUsername(currentUser.email ?? "");
 
     var user = LocalUser(
         uid: currentUser.uid,
