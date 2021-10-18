@@ -48,7 +48,7 @@ class AuthMethods {
     return user;
   }
 
-  /// Tells whether the user already exists or not.
+  /// Tells whether the user already exists in the database or not.
   Future<bool> authenticateUser(User user) async {
     QuerySnapshot result = await firestore
         .collection(USERS_COLLECTION)
